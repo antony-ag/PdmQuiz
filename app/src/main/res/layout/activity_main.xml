@@ -10,4 +10,77 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.fatecpg.pdmquiz.MainActivity">
 
+    <TextView
+        android:id="@+id/txtQtdQuestoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Informe o numero de questões para o seu teste:"
+        android:textSize="25dp"/>
+    <EditText
+        android:id="@+id/editQtd"
+        android:layout_below="@+id/txtQtdQuestoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="INICIAR"
+        android:onClick="iniciar"
+        android:id="@+id/btnIniciar"
+        android:layout_below="@+id/editQtd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"/>
+    <TextView
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/btnIniciar"
+        android:id="@+id/txtEstatisticas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estatisticas"
+        android:textSize="25dp"/>
+    <TextView
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/txtEstatisticas"
+        android:id="@+id/txtTestes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Testes"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:text="5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtTestes"
+        android:layout_toEndOf="@+id/txtTestes"
+        android:layout_marginStart="26dp"
+        android:textSize="20dp"
+        android:id="@+id/txtValor" />
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/txtValor"
+        android:id="@+id/txtRendimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rendimento"
+        android:textSize="20dp"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="LISTAR"
+        android:onClick="listar"
+        android:id="@+id/btnListar"
+        android:layout_below="@+id/txtRendimentoValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="88%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:id="@+id/txtRendimentoValor"
+        android:textSize="20dp"
+        android:layout_alignBaseline="@+id/txtRendimento"
+        android:layout_alignBottom="@+id/txtRendimento"
+        android:layout_toEndOf="@+id/txtRendimento" />
 </RelativeLayout>
