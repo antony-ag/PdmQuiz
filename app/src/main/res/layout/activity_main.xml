@@ -23,7 +23,7 @@
         android:layout_height="wrap_content" />
     <Button
         android:text="INICIAR"
-        android:onClick="iniciar"
+        android:onClick="initTest"
         android:id="@+id/btnIniciar"
         android:layout_below="@+id/editQtd"
         android:layout_width="match_parent"
