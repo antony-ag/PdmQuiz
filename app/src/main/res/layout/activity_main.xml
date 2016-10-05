@@ -14,14 +14,16 @@
         android:id="@+id/txtQtdQuestoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Informe o numero de questões para o seu teste:"
-        android:textSize="25dp"/>
+        android:text="Informe o numero de questões para o seu teste(Entre 10 e 30):"
+        android:textSize="20dp"/>
     <EditText
+        android:inputType="number"
         android:id="@+id/editQtd"
         android:layout_below="@+id/txtQtdQuestoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:layout_marginTop="20sp"
         android:text="INICIAR"
         android:onClick="initTest"
         android:id="@+id/btnIniciar"
@@ -30,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"/>
     <TextView
+        android:layout_marginTop="40sp"
         android:layout_marginBottom="20dp"
         android:layout_below="@+id/btnIniciar"
         android:id="@+id/txtEstatisticas"

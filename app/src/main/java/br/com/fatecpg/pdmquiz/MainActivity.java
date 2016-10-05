@@ -20,4 +20,8 @@ public class MainActivity extends AppCompatActivity {
         Intent i =  new Intent(getApplicationContext(),TestActivity.class);
         startActivity(i);
     }
+    public void listar(View View){
+        Intent i =  new Intent(getApplicationContext(),HistoricActivity.class);
+        startActivity(i);
+    }
 }
