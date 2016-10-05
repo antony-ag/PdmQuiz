@@ -16,7 +16,9 @@ public class TestActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
     }
-    public void cancelTest(View View){
-        Intent i =  new Intent(getApplicationContext(),MainActivity.class);
+
+    public void cancelTest(View View) {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
+    }
 }
