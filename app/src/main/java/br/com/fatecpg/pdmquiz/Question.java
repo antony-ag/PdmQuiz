@@ -5,5 +5,7 @@ package br.com.fatecpg.pdmquiz;
  */
 
 public class Question {
-    
+    public String question;
+    public String answer;
+    public String[] options;
 }

@@ -16,15 +16,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/button" />
+        android:id="@+id/btAnterior"
+        android:onClick="anterior"/>
 
     <Button
         android:text="Proximo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button"
+        android:layout_alignBottom="@+id/btAnterior"
         android:layout_alignParentEnd="true"
-        android:id="@+id/button2" />
+        android:id="@+id/btProximo"
+        android:onClick="proximo"/>
 
     <TextView
         android:text="Questão 7 / 8"
@@ -34,77 +36,81 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
-        android:id="@+id/textView" />
+        android:id="@+id/tvPosicao" />
 
     <TextView
-        android:text="Os tipos de transmissão são:"
+        android:text="[QUESTÔES]"
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/btProximo"
         android:layout_alignParentStart="true"
         android:layout_marginTop="29dp"
-        android:id="@+id/textView2" />
+        android:id="@+id/tvQuestoes" />
 
 
     <Button
         android:onClick="cancelTest"
-        android:text="CANCELAR TESTE"
+        android:text="CANCELAR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="34dp"
-        android:id="@+id/button4"
+        android:id="@+id/btCancelar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="CONFIRMAR"
+        android:text="Finalizar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
+        android:id="@+id/btFinalizar"
         android:layout_marginBottom="29dp"
-        android:layout_above="@+id/button4"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/btCancelar"
+        android:layout_alignParentStart="true"
+        android:onClick="finalizar"/>
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/tvQuestoes"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"
-        android:id="@+id/radioGroup">
+        android:id="@+id/rgRespostas">
 
         <RadioButton
-            android:text="A. Síncrono, Half-Duplex e Full-Duplex"
+            android:text="[opcao 1]"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/tvPosicao"
             android:layout_alignParentStart="true"
             android:layout_marginTop="41dp"
-            android:id="@+id/radioButton2" />
+            android:id="@+id/rbOpcao1"
+            android:onClick="opcaoSelecionada"/>
 
         <RadioButton
-            android:text="B. Síncrono, Assíncrono e Simplex"
+            android:text="[opcao 2]"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButton3"
-            android:layout_below="@+id/radioButton2"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/rbOpcao2"
+            android:layout_below="@+id/rbOpcao1"
+            android:layout_alignParentStart="true"
+            android:onClick="opcaoSelecionada"/>
 
         <RadioButton
-            android:text="C. Simplex, Half-Duplex e Full-Duplex"
+            android:text="[opcao 3]"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButton4"
-            android:layout_below="@+id/radioButton3"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/rbOpcao3"
+            android:layout_below="@+id/rbOpcao2"
+            android:layout_alignParentStart="true"
+            android:onClick="opcaoSelecionada"/>
+        <RadioButton
+            android:text="[opcao 4]"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rbOpcao4"
+            android:layout_below="@+id/rbOpcao3"
+            android:layout_alignParentStart="true"
+            android:onClick="opcaoSelecionada"/>
     </RadioGroup>
-
-    <RadioButton
-        android:text="D. Síncrono, Assíncrono e Duplex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/radioButton5"
-        android:layout_below="@+id/radioGroup"
-        android:layout_alignParentStart="true" />
 </RelativeLayout>
