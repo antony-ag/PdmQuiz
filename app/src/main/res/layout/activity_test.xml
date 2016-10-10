@@ -30,6 +30,7 @@
 
     <TextView
         android:text="Questão 7 / 8"
+        android:textColor="@color/colorBlack"
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +41,7 @@
 
     <TextView
         android:text="[QUESTÔES]"
+        android:textColor="@color/colorBlack"
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,6 +81,8 @@
 
         <RadioButton
             android:text="[opcao 1]"
+            android:textSize="18dp"
+            android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvPosicao"
@@ -88,7 +92,9 @@
             android:onClick="opcaoSelecionada"/>
 
         <RadioButton
+            android:textSize="18dp"
             android:text="[opcao 2]"
+            android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rbOpcao2"
@@ -97,7 +103,9 @@
             android:onClick="opcaoSelecionada"/>
 
         <RadioButton
+            android:textSize="18dp"
             android:text="[opcao 3]"
+            android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rbOpcao3"
@@ -105,7 +113,9 @@
             android:layout_alignParentStart="true"
             android:onClick="opcaoSelecionada"/>
         <RadioButton
+            android:textSize="18dp"
             android:text="[opcao 4]"
+            android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rbOpcao4"
