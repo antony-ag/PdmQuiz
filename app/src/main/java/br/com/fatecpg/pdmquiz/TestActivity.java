@@ -9,6 +9,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
     private ArrayList<Question> questions = new ArrayList<>();
@@ -31,18 +33,30 @@ public class TestActivity extends AppCompatActivity {
     }
     //Lista de perguntas
     private void createTest(){
-        Question q = new Question();
-        q.question="1+1";
-        q.answer="2";
+        Question q1 = new Question();
+        q1.title="1+1";
+        q1.answer="2";
         //Adaptada para 4 repostas
-        q.options = new String[]{"1","2","0","2"};
-        questions.add(q);
+        q1.alternative = new ArrayList();
+        q1.alternative.add("1");
+        q1.alternative.add("2");
+        q1.alternative.add("0");
+        q1.alternative.add("2");
+        Collections.shuffle(q1.alternative);
+        questions.add(q1);
 
-        q = new Question();
-        q.question="2+3";
-        q.answer="5";
-        q.options = new String[]{"5","1","-1","23"};
-        questions.add(q);
+        Question q2 = new Question();
+        q2.title="2+3";
+        q2.answer="5";
+        //q.alternative = new String[]{"5","1","-1","23"};
+        q2.alternative = new ArrayList();
+        q2.alternative.add("5");
+        q2.alternative.add("1");
+        q2.alternative.add("-1");
+        q2.alternative.add("23");
+        questions.add(q2);
+
+        Collections.shuffle(questions);
 
     }
     //Limpa os campos de resposta
@@ -60,17 +74,17 @@ public class TestActivity extends AppCompatActivity {
 
         //Seta as perguntas na tela
         TextView qTextView = (TextView)findViewById(R.id.tvQuestoes);
-        qTextView.setText(q.question);
+        qTextView.setText(q.title);
 
         //Seta as opções na Tela
         RadioButton opt1 = (RadioButton)findViewById(R.id.rbOpcao1);
-        opt1.setText(q.options[0]);
+        opt1.setText(q.alternative.get(0).toString());
         RadioButton opt2 = (RadioButton)findViewById(R.id.rbOpcao2);
-        opt2.setText(q.options[1]);
+        opt2.setText(q.alternative.get(1).toString());
         RadioButton opt3 = (RadioButton)findViewById(R.id.rbOpcao3);
-        opt3.setText(q.options[2]);
+        opt3.setText(q.alternative.get(2).toString());
         RadioButton opt4 = (RadioButton)findViewById(R.id.rbOpcao4);
-        opt4.setText(q.options[3]);
+        opt4.setText(q.alternative.get(3).toString());
         RadioGroup group = (RadioGroup)findViewById(R.id.rgRespostas);
         group.check(0);
 
