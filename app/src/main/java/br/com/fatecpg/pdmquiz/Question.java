@@ -10,5 +10,5 @@ public class Question {
     public ArrayList question;
     public String title;
     public String answer;
-    public ArrayList alternative;
+    public String[] alternative;
 }
