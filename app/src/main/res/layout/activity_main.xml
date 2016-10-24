@@ -31,7 +31,10 @@
         android:layout_below="@+id/editQtd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="@drawable/btn_1"
+        android:textSize="28sp"
         android:layout_marginBottom="20dp"/>
     <TextView
         android:layout_marginTop="40sp"
@@ -80,7 +83,12 @@
         android:id="@+id/btnListar"
         android:layout_below="@+id/txtRendimentoValor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="@drawable/btn_1"
+        android:textSize="28sp"
+        />
 
     <TextView
         android:text="88%"
