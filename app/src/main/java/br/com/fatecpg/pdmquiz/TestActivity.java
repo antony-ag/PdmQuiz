@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,10 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        createTest();
+        Intent m = getIntent();
+        int qtdQuestions = Integer.parseInt(m.getStringExtra("qtdQuestions"));
+
+        createTest(qtdQuestions);
         clearAnswers();
         refreshQuestion();
 
@@ -35,7 +39,7 @@ public class TestActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
     }
     //Lista de perguntas
-    private void createTest(){
+    private void createTest(int qtdQuestions){
             Question q1 = new Question();
             q1.title = "O que o operador INTERSECT retorna?";
             q1.answer = "Retorna todos os registros comuns a várias consultas";
@@ -349,6 +353,11 @@ public class TestActivity extends AppCompatActivity {
             questions.add(q30);
 
             Collections.shuffle(questions);
+
+
+            for(int i = 29; i >= qtdQuestions; i--) questions.remove(i);
+
+
         }
     //Limpa os campos de resposta
     private void clearAnswers(){
