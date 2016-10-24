@@ -50,6 +50,7 @@ public class TestActivity extends AppCompatActivity {
             q1.alternative.add("Retorna todo o conteúdo da tabela");
             q1.alternative.add("Retorna todas as tabelas existentes");
             q1.alternative.add("Retorna VAI CURINTIA");
+            Collections.shuffle(q1.alternative);
             questions.add(q1);
 
 
@@ -61,6 +62,7 @@ public class TestActivity extends AppCompatActivity {
             q2.alternative.add("DELETE VIEW VU_CONTROLE");
             q2.alternative.add("DROP VU_CONTROLE");
             q2.alternative.add("DELETE VU_CONTROLE");
+        Collections.shuffle(q2.alternative);
             questions.add(q2);
 
             Question q3 = new Question();
@@ -71,7 +73,8 @@ public class TestActivity extends AppCompatActivity {
             q3.alternative.add("SELECT * FROM USER_SEQUENCES");
             q3.alternative.add("SELECT * SEQUENCE");
             q3.alternative.add("SELECT * FROM SEQUENCES");
-            questions.add(q3);
+        Collections.shuffle(q3.alternative);
+        questions.add(q3);
 
             Question q4 = new Question();
             q4.title = "Com qual comando eu deleto o sinônimo DOCENTE?";
@@ -81,7 +84,8 @@ public class TestActivity extends AppCompatActivity {
             q4.alternative.add("DELETE DOCENTE");
             q4.alternative.add("DEL SYNONYM DOCENTE");
             q4.alternative.add("DROP DOCENTE");
-            questions.add(q4);
+        Collections.shuffle(q4.alternative);
+        questions.add(q4);
 
             Question q5 = new Question();
             q5.title = "Qual o nome do comando para criar tabelas?";
@@ -91,7 +95,8 @@ public class TestActivity extends AppCompatActivity {
             q5.alternative.add("CREATE TABLE");
             q5.alternative.add("CREATE");
             q5.alternative.add("ONCREATE");
-            questions.add(q5);
+        Collections.shuffle(q5.alternative);
+        questions.add(q5);
 
             Question q6 = new Question();
             q6.title = "Como criar um usuário em banco de dados chamado FATEC com a senha de 123456 e solicitar que a senha seja alterada no primeiro acesso?";
@@ -101,7 +106,8 @@ public class TestActivity extends AppCompatActivity {
             q6.alternative.add("CREATE USER FATEC BY 123456 EXPIRE");
             q6.alternative.add("CREATE USER FATEC IDENTIFIED 123456");
             q6.alternative.add("CREATE USER FATEC PASSWORD EXPIRE");
-            questions.add(q6);
+        Collections.shuffle(q6.alternative);
+        questions.add(q6);
 
             Question q7 = new Question();
             q7.title = "Como criar um grupo chamado 5º ciclo em banco de dados?";
@@ -111,7 +117,8 @@ public class TestActivity extends AppCompatActivity {
             q7.alternative.add("CREATE GROUP 5º CILCLO");
             q7.alternative.add("CREATE 5º CICLO");
             q7.alternative.add("CREATE CICLO");
-            questions.add(q7);
+        Collections.shuffle(q7.alternative);
+        questions.add(q7);
 
             Question q8 = new Question();
             q8.title = "Como criar um sinônimo para a tabela professor?";
@@ -121,7 +128,8 @@ public class TestActivity extends AppCompatActivity {
             q8.alternative.add("CREATE SYNONYM DOCENTE IN PROFESSOR");
             q8.alternative.add("CREATE SYNONIM DOCENTE FOR PROFESSOR");
             q8.alternative.add("CREATE SYNONIM DOCENTE IN PROFESSOR");
-            questions.add(q8);
+        Collections.shuffle(q8.alternative);
+        questions.add(q8);
 
             Question q9 = new Question();
             q9.title = "Qual o comando para visualizar todas as sequências criadas em um usuário em banco de dados?";
@@ -131,7 +139,8 @@ public class TestActivity extends AppCompatActivity {
             q9.alternative.add("SELECT FROM USER_SEQUENCES");
             q9.alternative.add("SELECT USER_SEQUENCES");
             q9.alternative.add("SELECT * FROM SEQUENCES");
-            questions.add(q9);
+        Collections.shuffle(q9.alternative);
+        questions.add(q9);
 
             Question q10 = new Question();
             q10.title = "Qual o comando em banco de dados utilizado para dar privilégios?";
@@ -141,7 +150,8 @@ public class TestActivity extends AppCompatActivity {
             q10.alternative.add("GRANT");
             q10.alternative.add("PRIVILEGIO");
             q10.alternative.add("SELECT");
-            questions.add(q10);
+        Collections.shuffle(q10.alternative);
+        questions.add(q10);
 
             Question q11 = new Question();
             q11.title = "Qual o comando em banco de dados utilizado para buscar informações?";
@@ -151,7 +161,8 @@ public class TestActivity extends AppCompatActivity {
             q11.alternative.add("CREATE");
             q11.alternative.add("PRIVILEGIO");
             q11.alternative.add("SELECT");
-            questions.add(q11);
+        Collections.shuffle(q11.alternative);
+        questions.add(q11);
 
             Question q12 = new Question();
             q12.title = "Qual o comando em banco de dados utilizado para criar itens no banco?";
@@ -161,7 +172,8 @@ public class TestActivity extends AppCompatActivity {
             q12.alternative.add("CREATE");
             q12.alternative.add("PRIVILEGIO");
             q12.alternative.add("SELECT");
-            questions.add(q12);
+        Collections.shuffle(q12.alternative);
+        questions.add(q12);
 
             Question q13 = new Question();
             q13.title = "Atribuir o usuário AUXILIXAR para o grupo de usuarios SECRETARIA";
@@ -171,7 +183,8 @@ public class TestActivity extends AppCompatActivity {
             q13.alternative.add("GRANT SECRETARIA IN AUXILIAR");
             q13.alternative.add("GRANT SECRETARIA FOR AUXILIAR");
             q13.alternative.add("GRANT SECRETARIA A AUXILIAR");
-            questions.add(q13);
+        Collections.shuffle(q13.alternative);
+        questions.add(q13);
 
             Question q14 = new Question();
             q14.title = "Conceder privilégios de criar sessão, criar tabela e criar sequencia o grupo SECRETARIA";
@@ -181,7 +194,8 @@ public class TestActivity extends AppCompatActivity {
             q14.alternative.add("GRANT CREATE SESSION, CREATE TABLE, CREATE SEQUENCE IN SECRETARIA");
             q14.alternative.add("GRANT SESSION, CREATE TABLE, CREATE SEQUENCE TO SECRETARIA");
             q14.alternative.add("GRANT CREATE SESSION, CREATE TABLE, CREATE SEQUENCE FOR SECRETARIA");
-            questions.add(q14);
+        Collections.shuffle(q14.alternative);
+        questions.add(q14);
 
             Question q15 = new Question();
             q15.title = "Conceder privilégio de criar view e criar sinonimo para o usuario AUXILIAR";
@@ -191,7 +205,8 @@ public class TestActivity extends AppCompatActivity {
             q15.alternative.add("GRANT VIEW, CREATE SYNONYM TO AUXILIAR");
             q15.alternative.add("GRANT CREATE VIEW, CREATE SYNONYM IN AUXILIAR");
             q15.alternative.add("GRANT CREATE VIEW TO AUXILIAR");
-            questions.add(q15);
+        Collections.shuffle(q15.alternative);
+        questions.add(q15);
 
             Question q16 = new Question();
             q16.title = "Criar um indice chamado IDX_ALUNO para a coluna NMALUNO da tabela ALUNO";
@@ -201,7 +216,8 @@ public class TestActivity extends AppCompatActivity {
             q16.alternative.add("CREATE IDX_ALUNO ON ALUNO (NMALUNO)");
             q16.alternative.add("CREATE INDEX IDX_ALUNO FOR ALUNO (NMALUNO)");
             q16.alternative.add("INDEX IDX_ALUNO ON ALUNO (NMALUNO)");
-            questions.add(q16);
+        Collections.shuffle(q16.alternative);
+        questions.add(q16);
 
             Question q17 = new Question();
             q17.title = "O que faz o comando EXISTS?";
@@ -211,7 +227,8 @@ public class TestActivity extends AppCompatActivity {
             q17.alternative.add("Testa se há tabelas no banco");
             q17.alternative.add("Testa a sub-consulta para verificar se a mesma funciona corretamente");
             q17.alternative.add("N.D.A ");
-            questions.add(q17);
+        Collections.shuffle(q17.alternative);
+        questions.add(q17);
 
             Question q18 = new Question();
             q18.title = "Para que é utilizado o TABLESPACE";
@@ -221,7 +238,8 @@ public class TestActivity extends AppCompatActivity {
             q18.alternative.add("É o nome dado as espaços não preenchidos da tabela");
             q18.alternative.add("É uma tabela grande que contém muito espaço para armazenar dados");
             q18.alternative.add("N.D.A");
-            questions.add(q18);
+        Collections.shuffle(q18.alternative);
+        questions.add(q18);
 
             Question q19 = new Question();
             q19.title = "O que tipo de dado passo armazenar numa váriavel tipo RAW em PL/SQL";
@@ -231,7 +249,8 @@ public class TestActivity extends AppCompatActivity {
             q19.alternative.add("Dados Binários");
             q19.alternative.add("Dados int");
             q19.alternative.add("Dados Boolean");
-            questions.add(q19);
+        Collections.shuffle(q19.alternative);
+        questions.add(q19);
 
             Question q20 = new Question();
             q20.title = "Qual o comando para apagar a trigger EXPLOSÃO";
@@ -241,7 +260,8 @@ public class TestActivity extends AppCompatActivity {
             q20.alternative.add("DROP EXPLOSAO");
             q20.alternative.add("DROP TRIGGER IN EXPLOSAO");
             q20.alternative.add("DROP TRIGGER TO EXPLOSAO");
-            questions.add(q20);
+        Collections.shuffle(q20.alternative);
+        questions.add(q20);
 
             Question q21 = new Question();
             q21.title = "Qual o comando para recompilar a trigger EXPLOSÃO";
@@ -251,7 +271,8 @@ public class TestActivity extends AppCompatActivity {
             q21.alternative.add("TRIGGER EXPLOSAO COMPILE");
             q21.alternative.add("COMPILE TRIGGER EXPLOSAO");
             q21.alternative.add("ALTER TRIGGER EXPLOSAO");
-            questions.add(q21);
+        Collections.shuffle(q21.alternative);
+        questions.add(q21);
 
 
             Question q22 = new Question();
@@ -263,7 +284,8 @@ public class TestActivity extends AppCompatActivity {
             q22.alternative.add("Sinônimo Query Linguagem");
             q22.alternative.add("Significa questões de linguagem");
             q22.alternative.add("Não sei");
-            questions.add(q22);
+        Collections.shuffle(q22.alternative);
+        questions.add(q22);
 
 
             Question q23 = new Question();
@@ -274,7 +296,8 @@ public class TestActivity extends AppCompatActivity {
             q23.alternative.add("Não");
             q23.alternative.add("Talvez");
             q23.alternative.add("Não sei");
-            questions.add(q23);
+        Collections.shuffle(q23.alternative);
+        questions.add(q23);
 
 
             Question q24 = new Question();
@@ -285,7 +308,8 @@ public class TestActivity extends AppCompatActivity {
             q24.alternative.add("Não! Cada um utiliza uma linguagem própria");
             q24.alternative.add("Não");
             q24.alternative.add("Não sei essa tá muito difícil");
-            questions.add(q24);
+        Collections.shuffle(q24.alternative);
+        questions.add(q24);
 
 
             Question q25 = new Question();
@@ -296,7 +320,8 @@ public class TestActivity extends AppCompatActivity {
             q25.alternative.add("Linguagem de Modalidade de Dados");
             q25.alternative.add("Linguagem de Modularização de Dados");
             q25.alternative.add("Não sei");
-            questions.add(q25);
+        Collections.shuffle(q25.alternative);
+        questions.add(q25);
 
 
             Question q26 = new Question();
@@ -307,7 +332,8 @@ public class TestActivity extends AppCompatActivity {
             q26.alternative.add("Linguagem de Detenção de Dados");
             q26.alternative.add("Linguagem de Descrição de Dados");
             q26.alternative.add("Linguagem de Destruição de Dados");
-            questions.add(q26);
+        Collections.shuffle(q26.alternative);
+        questions.add(q26);
 
 
             Question q27 = new Question();
@@ -318,7 +344,8 @@ public class TestActivity extends AppCompatActivity {
             q27.alternative.add("Sim");
             q27.alternative.add("Depende");
             q27.alternative.add("Sempre");
-            questions.add(q27);
+        Collections.shuffle(q27.alternative);
+        questions.add(q27);
 
 
             Question q28 = new Question();
@@ -330,7 +357,8 @@ public class TestActivity extends AppCompatActivity {
             q28.alternative.add("Pode ser colocado em várias linhas desde que no final de cada linha seja colocado o ponto e vírgula");
             q28.alternative.add("N.D.A");
             q28.alternative.add("Curitiba");
-            questions.add(q28);
+        Collections.shuffle(q28.alternative);
+        questions.add(q28);
 
             Question q29 = new Question();
             q29.title = "Para que serve o ponto-e-vírgula no final das linhas?";
@@ -341,7 +369,8 @@ public class TestActivity extends AppCompatActivity {
             q29.alternative.add("Não sei");
             q29.alternative.add("N.D.A");
             q29.alternative.add("Curitiba");
-            questions.add(q29);
+        Collections.shuffle(q29.alternative);
+        questions.add(q29);
 
 
             Question q30 = new Question();
@@ -352,7 +381,8 @@ public class TestActivity extends AppCompatActivity {
             q30.alternative.add("OR");
             q30.alternative.add("NOT");
             q30.alternative.add("TRUE");
-            questions.add(q30);
+        Collections.shuffle(q30.alternative);
+        questions.add(q30);
 
 
             Collections.shuffle(questions);
