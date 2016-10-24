@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bgmain"
     tools:context="br.com.fatecpg.pdmquiz.ResultActivity">
 
     <TextView
@@ -15,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="36dp"
         android:text="Resultado"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:textAlignment="center"
         android:id="@+id/textView" />
 
@@ -38,7 +39,7 @@
         android:layout_height="wrap_content"
         android:textSize="72dp"
         android:text="[000]"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:textAlignment="center"
         android:id="@+id/tvResultado"
         android:layout_weight="1"

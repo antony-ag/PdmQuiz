@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bgquestao"
     tools:context="br.com.fatecpg.pdmquiz.TestActivity">
 
     <Button
@@ -18,7 +19,9 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/btn_4"
         android:onClick="anterior"
-        android:text="Anterior" />
+        android:text="Anterior"
+        android:textColor="@android:color/background_light"
+        />
 
     <Button
         android:id="@+id/btProximo"
@@ -28,7 +31,9 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/btn_5"
         android:onClick="proximo"
-        android:text="Proximo" />
+        android:text="Proximo"
+        android:textColor="@android:color/background_light"
+        />
 
     <TextView
         android:id="@+id/tvPosicao"
@@ -38,7 +43,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:text="Questão 7 / 8"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:textSize="20sp" />
 
     <TextView
@@ -49,7 +54,7 @@
         android:layout_below="@+id/btProximo"
         android:layout_marginTop="29dp"
         android:text="[QUESTÔES]"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:textSize="17sp" />
 
 
@@ -97,7 +102,7 @@
             android:layout_marginTop="41dp"
             android:onClick="opcaoSelecionada"
             android:text="[opcao 1]"
-            android:textColor="@color/colorBlack"
+            android:textColor="@android:color/background_light"
             android:textSize="16dp" />
 
         <RadioButton
@@ -108,7 +113,7 @@
             android:layout_below="@+id/rbOpcao1"
             android:onClick="opcaoSelecionada"
             android:text="[opcao 2]"
-            android:textColor="@color/colorBlack"
+            android:textColor="@android:color/background_light"
             android:textSize="16dp" />
 
         <RadioButton
@@ -119,7 +124,7 @@
             android:layout_below="@+id/rbOpcao2"
             android:onClick="opcaoSelecionada"
             android:text="[opcao 3]"
-            android:textColor="@color/colorBlack"
+            android:textColor="@android:color/background_light"
             android:textSize="16dp" />
 
         <RadioButton
@@ -130,7 +135,7 @@
             android:layout_below="@+id/rbOpcao3"
             android:onClick="opcaoSelecionada"
             android:text="[opcao 4]"
-            android:textColor="@color/colorBlack"
+            android:textColor="@android:color/background_light"
             android:textSize="16dp" />
     </RadioGroup>
 </RelativeLayout>

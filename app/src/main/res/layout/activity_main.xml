@@ -8,18 +8,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bgmain"
     tools:context="br.com.fatecpg.pdmquiz.MainActivity">
 
     <TextView
         android:id="@+id/txtQtdQuestoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:text="Informe o numero de questões para o seu teste(Entre 10 e 30):"
-        android:textSize="20dp"/>
+        android:textSize="25dp"/>
     <EditText
         android:inputType="number"
         android:id="@+id/editQtd"
+        android:textColor="@android:color/background_light"
         android:layout_below="@+id/txtQtdQuestoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -44,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Estatisticas"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:textSize="25dp"/>
     <TextView
         android:layout_marginBottom="20dp"
@@ -53,12 +55,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Testes:"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:textSize="20dp"/>
 
     <TextView
-        android:text="5"
-        android:textColor="@color/colorBlack"
+        android:text="0"
+        android:textColor="@android:color/background_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtTestes"
@@ -73,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rendimento:"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:textSize="20dp"/>
 
     <Button
@@ -91,13 +93,13 @@
         />
 
     <TextView
-        android:text="88%"
+        android:text="0%"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:id="@+id/txtRendimentoValor"
         android:textSize="20dp"
-        android:textColor="@color/colorBlack"
+        android:textColor="@android:color/background_light"
         android:layout_alignBaseline="@+id/txtRendimento"
         android:layout_alignBottom="@+id/txtRendimento"
         android:layout_toEndOf="@+id/txtRendimento" />
