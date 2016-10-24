@@ -7,17 +7,19 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
     private ArrayList<Question> questions = new ArrayList<>();
-    //private ArrayList<String> teste = new ArrayList<>();
+    private ArrayList<List> dados = new ArrayList<>();
+    private ArrayList<Integer> nQuestions = new ArrayList<>();
+    private ArrayList<Integer> nAcertos = new ArrayList<>();
     private ArrayList<String> userAnswers = new ArrayList<>();
     private int position = 0;
     String teste;
@@ -29,7 +31,6 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         Intent m = getIntent();
-        //int qtdQuestions = Integer.parseInt(m.getStringExtra("qtdQuestions"));
         int qtdQuestions = m.getIntExtra("qtdQuestions", 0);
 
         createTest(qtdQuestions);
@@ -460,7 +461,9 @@ public class TestActivity extends AppCompatActivity {
         int qtdQuestions = m.getIntExtra("qtdQuestions", 0);
         String teste = "Teste "+(Armazenador.historico.size()+1)+" ("+qtdQuestions+" questões) "+sum+" pontos "+getDateTime();
         Armazenador.historico.add(teste);
-        Armazenador.estatistica.add(qtdQuestions,sum);
+        Armazenador.nAcertos += sum;
+        Armazenador.nQuestions +=qtdQuestions;
+
         teste = "";
         double result = 100.0 * (double)sum / (double)questions.size();
         Intent i = new Intent(getApplicationContext(), ResultActivity.class);

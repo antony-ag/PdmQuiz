@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
+    double result;
+    double nAcertos;
+    double nQuestions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,6 +19,22 @@ public class MainActivity extends AppCompatActivity {
         // insere icone no actionBar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
+
+        nQuestions = Armazenador.nQuestions;
+        nAcertos = Armazenador.nAcertos;
+
+        if (nAcertos != 0 && nQuestions != 0){
+            result = 100.0 * nAcertos / nQuestions;
+        }else{
+            result = 0;
+            nAcertos = 0;
+            nQuestions = 0;
+        }
+        TextView txtqtdTestes = (TextView)findViewById(R.id.txtValor);
+        txtqtdTestes.setText(String.valueOf(Armazenador.historico.size()));
+
+        TextView txtrendimento = (TextView)findViewById(R.id.txtRendimentoValor);
+        txtrendimento.setText(String.valueOf(result)+" %");
     }
 
     public void initTest(View View) {
