@@ -52,7 +52,7 @@
         android:id="@+id/txtTestes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Testes"
+        android:text="Testes:"
         android:textColor="@color/colorBlack"
         android:textSize="20dp"/>
 
@@ -72,7 +72,7 @@
         android:id="@+id/txtRendimento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rendimento"
+        android:text="Rendimento:"
         android:textColor="@color/colorBlack"
         android:textSize="20dp"/>
 
