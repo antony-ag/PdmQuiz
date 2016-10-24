@@ -24,7 +24,7 @@
         android:textColor="@color/colorBlack"
         android:textAlignment="center"
         android:id="@+id/txtDados"
-        android:text="Não há histórico de teste"
+        android:text="Não há histórico de testes"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
