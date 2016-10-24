@@ -1,6 +1,8 @@
 package br.com.fatecpg.pdmquiz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +24,6 @@ public class TestActivity extends AppCompatActivity {
     private ArrayList<Integer> nAcertos = new ArrayList<>();
     private ArrayList<String> userAnswers = new ArrayList<>();
     private int position = 0;
-    String teste;
 
 
     @Override
@@ -36,6 +37,8 @@ public class TestActivity extends AppCompatActivity {
         createTest(qtdQuestions);
         clearAnswers();
         refreshQuestion();
+        Vibrar(50);
+
 
         // insere icone no actionBar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -441,6 +444,7 @@ public class TestActivity extends AppCompatActivity {
         if (position > 0) {
             position--;
             refreshQuestion();
+            Vibrar(50);
         }
     }
 
@@ -448,6 +452,7 @@ public class TestActivity extends AppCompatActivity {
         if (position < questions.size() - 1) {
             position++;
             refreshQuestion();
+            Vibrar(50);
         }
     }
 
@@ -470,6 +475,8 @@ public class TestActivity extends AppCompatActivity {
         Armazenador.nAcertos += sum;
         Armazenador.nQuestions += qtdQuestions;
 
+        Vibrar(1000);
+
         teste = "";
         double result = 100.0 * (double) sum / (double) questions.size();
         Intent i = new Intent(getApplicationContext(), ResultActivity.class);
@@ -487,5 +494,11 @@ public class TestActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    private void Vibrar(long v)
+    {
+        Vibrator rr = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        rr.vibrate(v);
     }
 }
