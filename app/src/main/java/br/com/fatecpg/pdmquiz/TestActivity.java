@@ -459,7 +459,7 @@ public class TestActivity extends AppCompatActivity {
         }
         Intent m = getIntent();
         int qtdQuestions = m.getIntExtra("qtdQuestions", 0);
-        String teste = "Teste "+(Armazenador.historico.size()+1)+" ("+qtdQuestions+" questões) "+sum+" ponto(s) "+getDateTime();
+        String teste = "Teste "+(Armazenador.historico.size()+1)+" ("+qtdQuestions+" questões) "+sum+" pontos "+getDateTime();
         Armazenador.historico.add(teste);
         Armazenador.nAcertos += sum;
         Armazenador.nQuestions +=qtdQuestions;
