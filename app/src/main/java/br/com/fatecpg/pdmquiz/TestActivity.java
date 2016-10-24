@@ -29,7 +29,8 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         Intent m = getIntent();
-        int qtdQuestions = Integer.parseInt(m.getStringExtra("qtdQuestions"));
+        //int qtdQuestions = Integer.parseInt(m.getStringExtra("qtdQuestions"));
+        int qtdQuestions = m.getIntExtra("qtdQuestions", 0);
 
         createTest(qtdQuestions);
         clearAnswers();
