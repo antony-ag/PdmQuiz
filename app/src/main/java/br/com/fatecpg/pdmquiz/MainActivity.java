@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         txtqtdTestes.setText(String.valueOf(Armazenador.historico.size()));
 
         TextView txtrendimento = (TextView)findViewById(R.id.txtRendimentoValor);
-        txtrendimento.setText(String.valueOf(result)+" %");
+        txtrendimento.setText(String.format("%.2f",result)+" %");
     }
 
     public void initTest(View View) {

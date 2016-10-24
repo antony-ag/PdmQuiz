@@ -17,7 +17,7 @@ public class ResultActivity extends AppCompatActivity {
         double resultado = i.getDoubleExtra("result", 0);
 
         TextView tvResultado = (TextView)findViewById(R.id.tvResultado);
-        tvResultado.setText(resultado+"%");
+        tvResultado.setText(String.format("%.2f",resultado)+"%");
 
 
         // insere icone no actionBar
