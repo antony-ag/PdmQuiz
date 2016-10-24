@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     double result;
     double nAcertos;
     double nQuestions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,18 +24,18 @@ public class MainActivity extends AppCompatActivity {
         nQuestions = Armazenador.nQuestions;
         nAcertos = Armazenador.nAcertos;
 
-        if (nAcertos != 0 && nQuestions != 0){
+        if (nAcertos != 0 && nQuestions != 0) {
             result = 100.0 * nAcertos / nQuestions;
-        }else{
+        } else {
             result = 0;
             nAcertos = 0;
             nQuestions = 0;
         }
-        TextView txtqtdTestes = (TextView)findViewById(R.id.txtValor);
+        TextView txtqtdTestes = (TextView) findViewById(R.id.txtValor);
         txtqtdTestes.setText(String.valueOf(Armazenador.historico.size()));
 
-        TextView txtrendimento = (TextView)findViewById(R.id.txtRendimentoValor);
-        txtrendimento.setText(String.format("%.2f",result)+" %");
+        TextView txtrendimento = (TextView) findViewById(R.id.txtRendimentoValor);
+        txtrendimento.setText(String.format("%.2f", result) + " %");
     }
 
     public void initTest(View View) {

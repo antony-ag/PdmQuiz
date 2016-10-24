@@ -7,7 +7,7 @@ import java.util.List;
  * Created by adilson on 23/10/16.
  */
 
-public  class Armazenador {
+public class Armazenador {
     public static int nQuestions;
     public static int nAcertos;
     public static List historico = new ArrayList<>();

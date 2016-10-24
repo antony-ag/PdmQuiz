@@ -11,128 +11,126 @@
     tools:context="br.com.fatecpg.pdmquiz.TestActivity">
 
     <Button
-        android:text="Anterior"
+        android:id="@+id/btAnterior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/btAnterior"
-        android:onClick="anterior"
+        android:layout_alignParentTop="true"
         android:background="@drawable/btn_4"
-        />
+        android:onClick="anterior"
+        android:text="Anterior" />
 
     <Button
-        android:text="Proximo"
+        android:id="@+id/btProximo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btAnterior"
         android:layout_alignParentEnd="true"
-        android:id="@+id/btProximo"
-        android:onClick="proximo"
         android:background="@drawable/btn_5"
-        />
+        android:onClick="proximo"
+        android:text="Proximo" />
 
     <TextView
-        android:text="Questão 7 / 8"
-        android:textColor="@color/colorBlack"
-        android:textSize="20sp"
+        android:id="@+id/tvPosicao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
-        android:id="@+id/tvPosicao" />
+        android:text="Questão 7 / 8"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp" />
 
     <TextView
-        android:text="[QUESTÔES]"
-        android:textColor="@color/colorBlack"
-        android:textSize="17sp"
+        android:id="@+id/tvQuestoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btProximo"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/btProximo"
         android:layout_marginTop="29dp"
-        android:id="@+id/tvQuestoes" />
+        android:text="[QUESTÔES]"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp" />
 
 
     <Button
-        android:layout_marginTop="20dp"
-        android:text="Finalizar"
+        android:id="@+id/btFinalizar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btFinalizar"
-        android:layout_marginBottom="10dp"
         android:layout_above="@+id/btCancelar"
         android:layout_alignParentStart="true"
-        android:onClick="finalizar"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_2"
+        android:onClick="finalizar"
+        android:text="Finalizar"
+        android:textColor="#FFFFFF"
         android:textSize="28sp"
-        />
+        android:textStyle="bold" />
 
     <Button
+        android:id="@+id/btCancelar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/btn_3"
         android:onClick="cancelTest"
         android:text="CANCELAR"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btCancelar"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:background="@drawable/btn_3"
         android:textSize="28sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold" />
 
     <RadioGroup
+        android:id="@+id/rgRespostas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rgRespostas"
-        android:layout_below="@+id/tvQuestoes"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvQuestoes">
 
         <RadioButton
-            android:textSize="16dp"
+            android:id="@+id/rbOpcao1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvPosicao"
+            android:layout_marginTop="41dp"
+            android:onClick="opcaoSelecionada"
             android:text="[opcao 1]"
             android:textColor="@color/colorBlack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvPosicao"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="41dp"
-            android:id="@+id/rbOpcao1"
-            android:onClick="opcaoSelecionada"/>
+            android:textSize="16dp" />
 
         <RadioButton
-            android:textSize="16dp"
+            android:id="@+id/rbOpcao2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/rbOpcao1"
+            android:onClick="opcaoSelecionada"
             android:text="[opcao 2]"
             android:textColor="@color/colorBlack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rbOpcao2"
-            android:layout_below="@+id/rbOpcao1"
-            android:layout_alignParentStart="true"
-            android:onClick="opcaoSelecionada"/>
+            android:textSize="16dp" />
 
         <RadioButton
-            android:textSize="16dp"
+            android:id="@+id/rbOpcao3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/rbOpcao2"
+            android:onClick="opcaoSelecionada"
             android:text="[opcao 3]"
             android:textColor="@color/colorBlack"
+            android:textSize="16dp" />
+
+        <RadioButton
+            android:id="@+id/rbOpcao4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rbOpcao3"
-            android:layout_below="@+id/rbOpcao2"
             android:layout_alignParentStart="true"
-            android:onClick="opcaoSelecionada"/>
-        <RadioButton
-            android:textSize="16dp"
+            android:layout_below="@+id/rbOpcao3"
+            android:onClick="opcaoSelecionada"
             android:text="[opcao 4]"
             android:textColor="@color/colorBlack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rbOpcao4"
-            android:layout_below="@+id/rbOpcao3"
-            android:layout_alignParentStart="true"
-            android:onClick="opcaoSelecionada"/>
+            android:textSize="16dp" />
     </RadioGroup>
 </RelativeLayout>
