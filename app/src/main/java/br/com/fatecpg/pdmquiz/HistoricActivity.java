@@ -29,7 +29,7 @@ public class HistoricActivity extends AppCompatActivity {
             ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Armazenador.historico);
             ListView list = (ListView) findViewById(R.id.optionsListView);
             list.setAdapter(aa);
-            dados.setEnabled(false);
+            dados.setVisibility(View.INVISIBLE);
         }
     }
     public void voltar(View View){
