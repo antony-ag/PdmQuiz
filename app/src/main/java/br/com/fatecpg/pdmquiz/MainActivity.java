@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             e.requestFocus();
         } else {
             Intent i = new Intent(getApplicationContext(), TestActivity.class);
-            i.putExtra("qtdQuestoes", e.getText().toString());
+            i.putExtra("qtdQuestions", e.getText().toString());
             startActivity(i);
         }
     }

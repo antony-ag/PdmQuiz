@@ -1,5 +1,7 @@
 package br.com.fatecpg.pdmquiz;
 
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 
 /**
@@ -10,5 +12,5 @@ public class Question {
     public ArrayList question;
     public String title;
     public String answer;
-    public String[] alternative;
+    public ArrayList alternative;
 }
