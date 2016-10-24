@@ -17,9 +17,10 @@ import java.util.Date;
 
 public class TestActivity extends AppCompatActivity {
     private ArrayList<Question> questions = new ArrayList<>();
-    private ArrayList<String> teste = new ArrayList<>();
+    //private ArrayList<String> teste = new ArrayList<>();
     private ArrayList<String> userAnswers = new ArrayList<>();
     private int position = 0;
+    String teste;
 
 
     @Override
@@ -352,6 +353,7 @@ public class TestActivity extends AppCompatActivity {
             q30.alternative.add("TRUE");
             questions.add(q30);
 
+
             Collections.shuffle(questions);
 
 
@@ -425,11 +427,10 @@ public class TestActivity extends AppCompatActivity {
         }
         Intent m = getIntent();
         int qtdQuestions = m.getIntExtra("qtdQuestions", 0);
-        teste.add(String.valueOf(qtdQuestions));
-        teste.add(String.valueOf(sum));
-        teste.add(getDateTime());
+        String teste = "Teste "+(Armazenador.historico.size()+1)+" ("+qtdQuestions+" questões) "+sum+" pontos "+getDateTime();
         Armazenador.historico.add(teste);
-
+        Armazenador.estatistica.add(qtdQuestions,sum);
+        teste = "";
         double result = 100.0 * (double)sum / (double)questions.size();
         Intent i = new Intent(getApplicationContext(), ResultActivity.class);
         i.putExtra("result", result);

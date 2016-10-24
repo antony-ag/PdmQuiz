@@ -9,4 +9,5 @@ import java.util.List;
 
 public class Armazenador {
     public static List historico = new ArrayList<>();
+    public static List estatistica = new ArrayList<>();
 }

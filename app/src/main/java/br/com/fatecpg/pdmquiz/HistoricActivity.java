@@ -19,13 +19,13 @@ public class HistoricActivity extends AppCompatActivity {
         // insere icone no actionBar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
-
+        /*
         options.add("Teste 1 (18 questões) 04/10/2016 12:00 - 10 Pontos");
         options.add("Teste 2 (10 questões) 04/10/2016 13:00 - 10 Pontos");
         options.add("Teste 3 (30 questões) 04/10/2016 13:10 - 25 Pontos");
         options.add("Teste 4 (25 questões) 04/10/2016 14:00 - 5 Pontos");
-
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
+        */
+        ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Armazenador.historico);
         ListView list = (ListView) findViewById(R.id.optionsListView);
         list.setAdapter(aa);
     }
