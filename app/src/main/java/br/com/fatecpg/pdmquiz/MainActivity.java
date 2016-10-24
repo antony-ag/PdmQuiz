@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if (e.getText().toString().length() <= 0) {
             e.setError("Preencha o campo Quantidade de questões.");
             e.requestFocus();
-        } else if (Integer.parseInt(e.getText().toString()) < 0 || Integer.parseInt(e.getText().toString()) > 30) {
+        } else if (Integer.parseInt(e.getText().toString()) < 10 || Integer.parseInt(e.getText().toString()) > 30) {
             e.setError("Preencha no minimo 10 e no máximo 30");
             e.requestFocus();
         } else {
