@@ -25,7 +25,11 @@
         android:layout_marginTop="150dp"
         android:layout_gravity="center"
         android:textSize="25sp"
+<<<<<<< HEAD
         android:textColor="@android:color/black"
+=======
+        android:textColor="@color/colorBlack"
+>>>>>>> 89020c15a64b4ccd0c58ebcd55efba60649a5492
         android:textAlignment="center"
         android:id="@+id/txtDados"
         android:text="Não há histórico de testes"
