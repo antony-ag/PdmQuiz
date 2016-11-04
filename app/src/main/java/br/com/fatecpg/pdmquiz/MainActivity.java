@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public void initTest(View View) {
         EditText e = getEditText(R.id.editQtd);
         if (e.getText().toString().length() <= 0) {
-            e.setError("Preencha o campo Quantidade de questões.");
+            e.setError("Preencha o campo quantidade de questões.");
             e.requestFocus();
         } else if (Integer.parseInt(e.getText().toString()) < 10 || Integer.parseInt(e.getText().toString()) > 30) {
             e.setError("Preencha no mínimo 10 e no máximo 30");
