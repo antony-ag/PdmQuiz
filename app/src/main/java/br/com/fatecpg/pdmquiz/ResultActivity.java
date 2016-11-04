@@ -20,7 +20,7 @@ public class ResultActivity extends AppCompatActivity {
         tvResultado.setText(String.format("%.2f",resultado)+"%");
 
 
-        // insere icone no actionBar
+        // Insere icone no actionBar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
 

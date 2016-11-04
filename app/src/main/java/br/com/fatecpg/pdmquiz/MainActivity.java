@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             e.setError("Preencha o campo Quantidade de questões.");
             e.requestFocus();
         } else if (Integer.parseInt(e.getText().toString()) < 10 || Integer.parseInt(e.getText().toString()) > 30) {
-            e.setError("Preencha no minimo 10 e no máximo 30");
+            e.setError("Preencha no mínimo 10 e no máximo 30");
             e.requestFocus();
         } else {
             Intent i = new Intent(getApplicationContext(), TestActivity.class);
