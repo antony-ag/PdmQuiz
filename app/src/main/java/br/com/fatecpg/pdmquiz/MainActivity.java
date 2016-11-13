@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
         txtrendimento.setText(String.format("%.2f", result) + " %");
     }
 
+    public void maintenance(View View) {
+        Intent i = new Intent(getApplicationContext(), MaintenanceActivity.class);
+        startActivity(i);
+    }
+
     public void initTest(View View) {
         EditText e = getEditText(R.id.editQtd);
         if (e.getText().toString().length() <= 0) {

@@ -103,4 +103,16 @@
         android:layout_alignBaseline="@+id/txtRendimento"
         android:layout_alignBottom="@+id/txtRendimento"
         android:layout_toEndOf="@+id/txtRendimento" />
+
+    <Button
+        android:id="@+id/btMaintenance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_3"
+        android:onClick="maintenance"
+        android:text="MANUTENÇÃO"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 </RelativeLayout>

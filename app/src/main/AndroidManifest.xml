@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ResultActivity" android:screenOrientation="portrait" />
+        <activity android:name=".MaintenanceActivity" android:screenOrientation="portrait" />
         <activity android:name=".TestActivity" android:screenOrientation="portrait" />
         <activity android:name=".HistoricActivity" android:screenOrientation="portrait"></activity>
     </application>

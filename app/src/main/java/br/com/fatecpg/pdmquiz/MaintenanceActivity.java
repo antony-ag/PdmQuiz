@@ -16,22 +16,21 @@ import java.util.Date;
 import java.util.List;
 
 public class MaintenanceActivity extends AppCompatActivity {
-    private ArrayList<Question> questions = new ArrayList<>();
+    private ArrayList<BdQuestion> questions = new ArrayList<>();
     private ArrayList<List> dados = new ArrayList<>();
     private ArrayList<Integer> nQuestions = new ArrayList<>();
     private ArrayList<Integer> nAcertos = new ArrayList<>();
     private ArrayList<String> userAnswers = new ArrayList<>();
     private int position = 0;
-    String teste;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_maintenance);
 
         Intent m = getIntent();
-        int qtdQuestions = m.getIntExtra("qtdQuestions", 0);
+        int qtdQuestions = 1;
 
         createTest(qtdQuestions);
         clearAnswers();
@@ -43,7 +42,7 @@ public class MaintenanceActivity extends AppCompatActivity {
     }
     //Lista de perguntas
     private void createTest(int qtdQuestions){
-            Question q1 = new Question();
+            BdQuestion q1 = new BdQuestion();
             q1.title = "O que o operador INTERSECT retorna?";
             q1.answer = "Retorna todos os registros comuns a várias consultas";
             q1.alternative = new ArrayList();
@@ -55,7 +54,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             questions.add(q1);
 
 
-            Question q2 = new Question();
+            BdQuestion q2 = new BdQuestion();
             q2.title = "Com qual comando abaixo eu deleto a View VU_CONTORLE?";
             q2.answer = "DROP VIEW VU_CONTROLE";
             q2.alternative = new ArrayList();
@@ -63,9 +62,9 @@ public class MaintenanceActivity extends AppCompatActivity {
             q2.alternative.add("DELETE VIEW VU_CONTROLE");
             q2.alternative.add("DROP VU_CONTROLE");
             q2.alternative.add("DELETE VU_CONTROLE");
-        Collections.shuffle(q2.alternative);
+            Collections.shuffle(q2.alternative);
             questions.add(q2);
-
+/*
             Question q3 = new Question();
             q3.title = "Com qual comando eu consigo visualizar todas as sequências existentes?";
             q3.answer = "SELECT * FROM USER_SEQUENCES";
@@ -384,25 +383,25 @@ public class MaintenanceActivity extends AppCompatActivity {
             q30.alternative.add("TRUE");
         Collections.shuffle(q30.alternative);
         questions.add(q30);
-
+*/
 
             Collections.shuffle(questions);
 
 
-            for(int i = 29; i >= qtdQuestions; i--) questions.remove(i);
+           // for(int i = questions.size(); i > qtdQuestions; i--) questions.remove(i);
 
 
         }
     //Limpa os campos de resposta
     private void clearAnswers(){
-        for(Question question: questions){
+        for(BdQuestion question: questions){
             userAnswers.add("");
         }
     }
     //Seta as perguntas na tela
     private void refreshQuestion(){
         //Define a posicao
-        Question q = questions.get(position);
+        BdQuestion q = questions.get(position);
         TextView posTextView = (TextView)findViewById(R.id.tvPosicao);
         posTextView.setText((position+1)+" de "+questions.size());
 
@@ -442,7 +441,9 @@ public class MaintenanceActivity extends AppCompatActivity {
     public void proximo(View view){
         if(position<questions.size()-1) {
             position++;
+            //Carregar o próximo
             refreshQuestion();
+            //se não houver proximo entrar no modo nova questão
         }
     }
     public void opcaoSelecionada(View view){
