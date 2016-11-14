@@ -2,7 +2,6 @@ package br.com.fatecpg.pdmquiz;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -11,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -19,18 +17,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 
 import br.com.fatecpg.pdmquiz.db.TasksSQLiteHelp;
 
 public class MaintenanceActivity extends AppCompatActivity {
     private ArrayList<BdQuestion> questions = new ArrayList<>();
-    private ArrayList<String> userAnswers = new ArrayList<>();
-    private int position = 0;
+    private int position = 0; //cursor para identificar a questão à ser exibida
+
     TasksSQLiteHelp dbHelper = null;
     SQLiteDatabase db = null;
 
@@ -42,22 +36,30 @@ public class MaintenanceActivity extends AppCompatActivity {
         try {
             dbHelper = new TasksSQLiteHelp(getApplicationContext());
 
-            questions = getQuestions();
-            refreshQuestion();
+            questions = getQuestions(); //Recupera as questões no banco
+            refreshQuestion(); //Atualiz a tela
         }catch (Exception ex){
-            new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
-                    .setMessage("try3->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
+            new AlertDialog.Builder(this)
+                    .setMessage("onCreate() -> "+ex.getLocalizedMessage())
                     .setPositiveButton("Ok", null)
                     .show();
         }
 
 
-        // insere icone no actionBar
+        //Insere icone no actionBar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
     }
 
-    public boolean addDB(String question, String answer, String opt1, String opt2, String opt3){
+    /**
+     * Adiciona um novo registro ao banco
+     * @param question -> Pergunta
+     * @param answer -> Resposta certa
+     * @param opt1 -> Alternativa 1
+     * @param opt2 -> Alternativa 2
+     * @param opt3 -> Alternativa 3
+     */
+    private void addDB(String question, String answer, String opt1, String opt2, String opt3){
         try{
             db = dbHelper.getWritableDatabase();
             db.execSQL("INSERT INTO QUESTIONS(QUESTION, ANSWER, OPT1, OPT2, OPT3) VALUES(" +
@@ -69,73 +71,97 @@ public class MaintenanceActivity extends AppCompatActivity {
                     ")");
             db.close();
             dbHelper.close();
-            return true;
         } catch (Exception ex){
             new AlertDialog.Builder(this)
-                    .setMessage("try1->"+ex.getLocalizedMessage())
+                    .setMessage("addDB() erro ->"+ex.getLocalizedMessage())
                     .setPositiveButton("Ok", null)
                     .show();
-            return false;
         }
     }
 
-    public boolean changeDB(String id, String question, String answer, String opt1, String opt2, String opt3){
+    /**
+     * Altera um registro existente no banco de dados
+     * @param id -> Id do registro no banco
+     * @param question -> Pergunta
+     * @param answer -> Resposta certa
+     * @param opt1 -> Alternativa 1
+     * @param opt2 -> Alternativa 2
+     * @param opt3 -> Alternativa 3
+     */
+    private void changeDB(String id, String question, String answer, String opt1, String opt2, String opt3){
         try{
             db = dbHelper.getWritableDatabase();
-            ContentValues cv = new ContentValues();
+            
+            ContentValues cv = new ContentValues();//Preparando a Query
             cv.put("QUESTION",question);
             cv.put("ANSWER",answer);
             cv.put("OPT1",opt1);
             cv.put("OPT2",opt2);
             cv.put("OPT3",opt3);
+            
             db.update("QUESTIONS", cv, "ID="+id, null);
 
-            /*db.execSQL("UPDATE QUESTIONS SET" +
-                    " QUESTION='"+question+
-                    "', ANSWER='"+answer+
-                    "', OPT1='"+opt1+
-                    "', OPT2='"+opt2+
-                    "', OPT3='"+opt3+
-                    " WHERE ID="+id);*/
             db.close();
             dbHelper.close();
-            return true;
         } catch (Exception ex){
             new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
-                    .setMessage("try1->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
+                    .setMessage("changeDB erro ->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
                     .setPositiveButton("Ok", null)
                     .show();
-            return false;
         }
     }
 
+    /**
+     * Exclui no banco o registro atual e atualiza o ambiente.
+     * @param view
+     */
     public void delDB(View view){
         try{
-            if(position<questions.size()) {
-                BdQuestion q = questions.get(position);
+            /**
+             * INDEX:position
+             * SIZE:questions.size()
+             * Quando o usuário está exibindo na tela uma nova questão '[INDEX:position]' não corresponde a nenhuma questão existente em 'questions'.
+             * 
+             * Vale lembrar que o INDEX de um array não corresponde ao número de posições SIZE do mesmo... 
+             * (Ex. A última posição de um array de SIZE:5 corresponde ao INDEX:4)
+             * 
+             * Portando:
+             */
+            if(position < questions.size()) { /** O usuário deseja apgar uma questão que está exibida na tela*/ 
+                BdQuestion q = questions.get(position); //Instancia uma variável com os dados da questão exibida atualmente na tela.
+                
                 db = dbHelper.getWritableDatabase();
-                db.execSQL("DELETE FROM QUESTIONS WHERE ID = '" + q._id + "'");
+                db.execSQL("DELETE FROM QUESTIONS WHERE ID = '" + q._id + "'"); //Exclui no banco o _id da questão atual
                 db.close();
                 dbHelper.close();
-                position = (position > 0) ? (position - 1) : 0;
+                
+                position = (position > 0) ? (position - 1) : 0; //Atualiza a posição do cursor
+                
                 questions = getQuestions();
                 refreshQuestion();
-            }else if (position == questions.size()){
+                
+            }else if (position == questions.size()){ /** Nenhuma questão está sendo exibida na tela*/
                 refreshQuestion();
             }
+            
             Toast.makeText(getApplicationContext(), "EXCLUIDO!", Toast.LENGTH_SHORT).show();
 
         } catch (Exception ex){
             newQuestion();
             new AlertDialog.Builder(this)
-                    .setMessage("try2->"+ex.getLocalizedMessage())
+                    .setMessage("delDB() ->"+ex.getLocalizedMessage())
                     .setPositiveButton("Ok", null)
                     .show();
         }
     }
 
-    protected ArrayList<BdQuestion> getQuestions(){
-        ArrayList<BdQuestion> qlist = new ArrayList<>();
+    /**
+     * Recupera os dados gravados no banco.
+     * @return ArrayList[ID, QUESTION, ANSWER, OPT1, OPT2, OP3]
+     */
+    private ArrayList<BdQuestion> getQuestions(){
+        
+        ArrayList<BdQuestion> qlist = new ArrayList<>(); //Instancia a variável de retorno
 
         db = dbHelper.getReadableDatabase();
 
@@ -143,20 +169,22 @@ public class MaintenanceActivity extends AppCompatActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM QUESTIONS", null);
         cursor.moveToFirst(); //O cursor começa antes do primeiro registro, isso posiciona o cursor no primeiro registro
 
-        while (!cursor.isAfterLast()){
-            BdQuestion q = new BdQuestion();
-            q.alternative = new ArrayList();
-            //q.alternative.clear();
+        while (!cursor.isAfterLast()){ // Verifica se todos os registros recuperados do banco já foram percorridos pelo cursor
+            
+            BdQuestion q = new BdQuestion(); //A cada iteração instancia uma nova 'BdQuestion' que será incluida na variável de retorno 'qlist'
 
+            //Recupera coluna por coluna do banco na posição atual do cursor
             q._id = cursor.getString(cursor.getColumnIndex("ID"));
             q.title = cursor.getString(cursor.getColumnIndex("QUESTION"));
             q.answer = cursor.getString(cursor.getColumnIndex("ANSWER"));
+
+            q.alternative = new ArrayList();
             q.alternative.add(cursor.getString(cursor.getColumnIndex("ANSWER")));
             q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT1")));
             q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT2")));
             q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT3")));
-            //Collections.shuffle(q.alternative);
-            qlist.add(q);
+
+            qlist.add(q); //Adiciona os dados na variável de retorno
 
             cursor.moveToNext();
         }
@@ -169,15 +197,20 @@ public class MaintenanceActivity extends AppCompatActivity {
     }
 
 
-    //Seta as perguntas na tela
+    /**
+     * Atualiza a activity
+     */
     private void refreshQuestion(){
+        
+        //Restaura a formatação original dos TextViews
         TextView tvp = (TextView)findViewById(R.id.tvPerg);
         TextView tvr = (TextView)findViewById(R.id.tvResposta);
         TextView tva = (TextView)findViewById(R.id.tvAlternativa);
         tvp.setBackgroundColor(0x00000000);
         tvr.setBackgroundColor(0x00000000);
         tva.setBackgroundColor(0x00000000);
-
+        
+        //Modifica o texto e o tipo do botão 'próximo' caso esteja sendo exibida a última questão registrada ou uma questão nova.
         if((questions.size() == 0) || (position == questions.size()-1)) {
             Button btnNext = (Button) findViewById(R.id.btProximo);
             btnNext.setText("NOVA");
@@ -188,7 +221,8 @@ public class MaintenanceActivity extends AppCompatActivity {
             btnNext.setText("PRÓXIMO");
         }
 
-        if(questions.size()>0 && position<questions.size()){
+        //Atualiza os campos da activity em função da posição atual do cursor 'position'
+        if(questions.size()>0 && position<questions.size()){ // Existem questões em 'questions' e cursor não estão posicionado na última questão.
             //Define a posicao
             BdQuestion q = questions.get(position);
             TextView posTextView = (TextView)findViewById(R.id.tvPosicao);
@@ -199,26 +233,22 @@ public class MaintenanceActivity extends AppCompatActivity {
             qTextView.setText(q.title);
 
             //Seta as opções na Tela
+            //Resposta
+            RadioButton answer = (RadioButton)findViewById(R.id.rbAnswer);
+            answer.setText(q.alternative.get(0).toString());
+            //Alternativas
             RadioButton opt1 = (RadioButton)findViewById(R.id.rbOpcao1);
-            opt1.setText(q.alternative.get(0).toString());
+            opt1.setText(q.alternative.get(1).toString());
             RadioButton opt2 = (RadioButton)findViewById(R.id.rbOpcao2);
-            opt2.setText(q.alternative.get(1).toString());
+            opt2.setText(q.alternative.get(2).toString());
             RadioButton opt3 = (RadioButton)findViewById(R.id.rbOpcao3);
-            opt3.setText(q.alternative.get(2).toString());
-            RadioButton opt4 = (RadioButton)findViewById(R.id.rbOpcao4);
-            opt4.setText(q.alternative.get(3).toString());
+            opt3.setText(q.alternative.get(3).toString());
             RadioGroup group = (RadioGroup)findViewById(R.id.rgRespostas);
             group.check(0);
 
             //Compara se a pergunta
-            if(q.answer.equals(opt1.getText()))
-                group.check(R.id.rbOpcao1);
-            else if(q.answer.equals(opt2.getText()))
-                group.check(R.id.rbOpcao2);
-            else if(q.answer.equals(opt3.getText()))
-                group.check(R.id.rbOpcao3);
-            else if(q.answer.equals(opt4.getText()))
-                group.check(R.id.rbOpcao4);
+            group.check(R.id.rbAnswer);
+
         }else{
             Button btnNext = (Button) findViewById(R.id.btProximo);
             btnNext.setText("NOVA");
@@ -228,12 +258,21 @@ public class MaintenanceActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Modifica o indica de pocição
+     * @param view
+     */
     public void anterior(View view){
         if(position>0) {
             position--;
             refreshQuestion();
         }
     }
+
+    /**
+     * Modifica o indica de pocição
+     * @param view
+     */
     public void proximo(View view){
 
         if(position<questions.size()-1) {
@@ -247,7 +286,10 @@ public class MaintenanceActivity extends AppCompatActivity {
 
     }
 
-    public void newQuestion(){
+    /**
+     * Prepara a activity para receber os dados de uma nova questão.
+     */
+    private void newQuestion(){
         position = questions.size();
 
         TextView posTextView = (TextView) findViewById(R.id.tvPosicao);
@@ -258,29 +300,43 @@ public class MaintenanceActivity extends AppCompatActivity {
         qTextView.setText("Clique para editar a pergunta");
 
         //Seta as opções na Tela
-        RadioButton opt1 = (RadioButton) findViewById(R.id.rbOpcao1);
+        RadioButton opt1 = (RadioButton) findViewById(R.id.rbAnswer);
         opt1.setText("Clique para editar a resposta");
-        RadioButton opt2 = (RadioButton) findViewById(R.id.rbOpcao2);
+        RadioButton opt2 = (RadioButton) findViewById(R.id.rbOpcao1);
         opt2.setText("Clique para editar a alternativa 1");
-        RadioButton opt3 = (RadioButton) findViewById(R.id.rbOpcao3);
+        RadioButton opt3 = (RadioButton) findViewById(R.id.rbOpcao2);
         opt3.setText("Clique para editar a alternativa 2");
-        RadioButton opt4 = (RadioButton) findViewById(R.id.rbOpcao4);
+        RadioButton opt4 = (RadioButton) findViewById(R.id.rbOpcao3);
         opt4.setText("Clique para editar a alternativa 3");
         RadioGroup group = (RadioGroup) findViewById(R.id.rgRespostas);
         group.check(0);
     }
 
-    //Chama os popups
+    /**
+     * Exibe o popup de modificação dos RadioButtons
+     * @param view
+     */
     public void opcaoSelecionada(View view){
         RadioButton opt = (RadioButton)findViewById(view.getId());
         abrePopup(opt.getText().toString(), "Opção", view);
-        //userAnswers.set(position, opt.getText().toString());
     }
+
+    /**
+     * Exibe o popup de modificação dos Textviews
+     * @param view
+     */
     public void tvQuest(View view){
         TextView tv = (TextView)findViewById(view.getId());
         abrePopupTv(tv.getText().toString(), "Pergunta", view);
     }
     //Popups
+
+    /**
+     * Popup de modificação de Radiobuttons
+     * @param textoAtual -> Texto atual para exibir no campo hint do EditText do popup
+     * @param title -> Título da janela do popup
+     * @param view
+     */
     public void abrePopup(String textoAtual, String title, final View view){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -315,6 +371,13 @@ public class MaintenanceActivity extends AppCompatActivity {
         // show it
         alertDialogBuilder.show();
     }
+
+    /**
+     * Popup de modificação de TextView
+     * @param textoAtual -> Texto atual para exibir no campo hint do EditText do popup
+     * @param title -> Título da janela do popup
+     * @param view
+     */
     public void abrePopupTv(String textoAtual, String title, final View view){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -351,6 +414,10 @@ public class MaintenanceActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Verifica se o usuário informou todos os valores nos campos e passa para os métodos de gravação do banco os valores informados pelo usuário
+     * @param view
+     */
     public void gravar(View view){
 
         //Nova Questão
@@ -363,17 +430,18 @@ public class MaintenanceActivity extends AppCompatActivity {
         String pergunta = tv.getText().toString();
 
         //Resposta
-        RadioButton rb = (RadioButton)findViewById(R.id.rbOpcao1);
+        RadioButton rb = (RadioButton)findViewById(R.id.rbAnswer);
         String answer = rb.getText().toString();
 
         //Alternativas
-        RadioButton rb1 = (RadioButton)findViewById(R.id.rbOpcao2);
+        RadioButton rb1 = (RadioButton)findViewById(R.id.rbOpcao1);
         String opt1 = rb1.getText().toString();
-        RadioButton rb2 = (RadioButton)findViewById(R.id.rbOpcao3);
+        RadioButton rb2 = (RadioButton)findViewById(R.id.rbOpcao2);
         String opt2 = rb2.getText().toString();
-        RadioButton rb3 = (RadioButton)findViewById(R.id.rbOpcao4);
+        RadioButton rb3 = (RadioButton)findViewById(R.id.rbOpcao3);
         String opt3 = rb3.getText().toString();
 
+        //Verifica se todos os campos foram editados
         boolean ck1 = !(pergunta.equals("Clique para editar a pergunta"));
         boolean ck2 = !(answer.equals("Clique para editar a resposta"));
         boolean ck3 = !(opt1.equals("Clique para editar a alternativa 1"));
@@ -384,23 +452,30 @@ public class MaintenanceActivity extends AppCompatActivity {
         TextView tvr = (TextView)findViewById(R.id.tvResposta);
         TextView tva = (TextView)findViewById(R.id.tvAlternativa);
 
-        if(ck1&&ck2&&ck3&&ck4&&ck5){
+        if(ck1&&ck2&&ck3&&ck4&&ck5){ //Verifica se todos os campos foram editados
+            //Restaura a formatação dos campos
             tvp.setBackgroundColor(0x00000000);
             tvr.setBackgroundColor(0x00000000);
             tva.setBackgroundColor(0x00000000);
-            if(newQuestion){
+
+            if(newQuestion){ //Verifica se o usuário está criando uma nova questão ou alterando uma existente
                 addDB(pergunta, answer, opt1, opt2, opt3);
             }else{
                 BdQuestion q = questions.get(position);
                 changeDB(q._id, pergunta, answer, opt1, opt2, opt3);
             }
+
             questions = getQuestions();
             refreshQuestion();
             Toast.makeText(getApplicationContext(), "GRAVADO!", Toast.LENGTH_SHORT).show();
-        }else{
+
+        }else{ //Informa ao usuário que há questões não preenchidas.
+
+            //Muda o background para vermelho onde o usuário deixou de alterar os valors dos campos.
             if(!ck1){tvp.setBackgroundColor(Color.parseColor("#FF0000"));}else{tvp.setBackgroundColor(0x00000000);}
             if(!ck2){tvr.setBackgroundColor(Color.parseColor("#FF0000"));}else{tvr.setBackgroundColor(0x00000000);}
-            if(!(ck3||ck4||ck5)){tva.setBackgroundColor(Color.parseColor("#FF0000"));}else{tva.setBackgroundColor(0x00000000);}
+            if(!ck3||!ck4||!ck5){tva.setBackgroundColor(Color.parseColor("#FF0000"));}else{tva.setBackgroundColor(0x00000000);}
+
             new AlertDialog.Builder(this)
                     .setMessage("Você deve editar todos os campos antes de gravar.")
                     .setPositiveButton("Ok", null)
@@ -409,7 +484,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
     }
 
-//metodos teste
+//metodos teste .... Excluir ao final do projeto
     private void clearDB(){
         db = dbHelper.getReadableDatabase();
         //Será criado um cursor para percorrer os dados do select
@@ -417,5 +492,4 @@ public class MaintenanceActivity extends AppCompatActivity {
         db.close(); // Objeto banco---
         dbHelper.close();
     }
-
 }
