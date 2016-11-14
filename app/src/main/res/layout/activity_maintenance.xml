@@ -64,78 +64,51 @@
             android:textColor="@android:color/background_light"
             android:textSize="20sp"/>
 
-        <TextView
-            android:id="@+id/perg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/btProximo"
-            android:layout_marginTop="6dp"
-            android:textAlignment="center"
-            android:text="[Pergunta:]"
-            android:textColor="@android:color/background_light"
-            android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/tvQuestoes"
-            android:onClick="tvQuest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/perg"
-            android:text="[PERGUNTA]"
-            android:textColor="@android:color/background_light"
-            android:textSize="22sp" />
-
-
-        <Button
-            android:id="@+id/btFinalizar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btCancelar"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_2"
-            android:onClick="finalizar"
-            android:text="GRAVAR"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btCancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/btn_3"
-            android:onClick="delDB"
-            android:text="EXCLUIR"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold" />
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/scrollView"
-            android:layout_below="@+id/tvQuestoes">
+           android:layout_below="@+id/btProximo"
+            android:layout_marginBottom="50dp">
 
         <RadioGroup
             android:id="@+id/rgRespostas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/scrollView">
+            android:layout_below="@+id/scrollView"
+            >
+
+            <TextView
+                android:id="@+id/perg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/btProximo"
+                android:layout_marginTop="6dp"
+                android:textAlignment="center"
+                android:text="[Pergunta:]"
+                android:textColor="@android:color/background_light"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvQuestoes"
+                android:onClick="tvQuest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/perg"
+                android:text="[PERGUNTA]"
+                android:textColor="@android:color/background_light"
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tvResposta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/btProximo"
                 android:layout_marginTop="29dp"
                 android:text="[Resposta Certa:]"
                 android:textAlignment="center"
@@ -204,6 +177,38 @@
         </RadioGroup>
 
         </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/btFinalizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_2"
+                android:onClick="finalizar"
+                android:text="GRAVAR"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/btn_3"
+                android:onClick="delDB"
+                android:text="EXCLUIR"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>
