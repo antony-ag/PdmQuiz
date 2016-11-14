@@ -1,7 +1,10 @@
 package br.com.fatecpg.pdmquiz;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
@@ -13,16 +16,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+
+import br.com.fatecpg.pdmquiz.db.TasksSQLiteHelp;
 
 public class MaintenanceActivity extends AppCompatActivity {
     private ArrayList<BdQuestion> questions = new ArrayList<>();
-    private ArrayList<List> dados = new ArrayList<>();
-    private ArrayList<Integer> nQuestions = new ArrayList<>();
-    private ArrayList<Integer> nAcertos = new ArrayList<>();
     private ArrayList<String> userAnswers = new ArrayList<>();
     private int position = 0;
-
+    TasksSQLiteHelp dbHelper = null;
+    SQLiteDatabase db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,53 +32,135 @@ public class MaintenanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maintenance);
 
         Intent m = getIntent();
-        int qtdQuestions = 1;
+        //int qtdQuestions = 1;
 
-        createTest(qtdQuestions);
-        clearAnswers();
-        refreshQuestion();
+        //createTest(2);
+        try {
+            dbHelper = new TasksSQLiteHelp(getApplicationContext());
+
+            //inflateDB();
+            //clearDB();
+
+            questions = getQuestions();
+            clearAnswers();
+            refreshQuestion();
+        }catch (Exception ex){
+            new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
+                    .setMessage("try3->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
+                    .setPositiveButton("Ok", null)
+                    .show();
+        }
+
 
         // insere icone no actionBar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
     }
-    //Lista de perguntas
-    private void createTest(int qtdQuestions){
-            BdQuestion q1 = new BdQuestion();
-            q1.title = "O que o operador INTERSECT retorna?";
-            q1.answer = "Retorna todos os registros comuns a várias consultas";
-            q1.alternative = new ArrayList();
-            q1.alternative.add("Retorna todos os registros comuns a várias consultas");
-            q1.alternative.add("Retorna todo o conteúdo da tabela");
-            q1.alternative.add("Retorna todas as tabelas existentes");
-            q1.alternative.add("Retorna VAI CURINTIA");
-            Collections.shuffle(q1.alternative);
-            questions.add(q1);
+
+    public boolean addDB(String question, String answer, String opt1, String opt2, String opt3){
+        try{
+            db = dbHelper.getWritableDatabase();
+            db.execSQL("INSERT INTO QUESTIONS(QUESTION, ANSWER, OPT1, OPT2, OPT3) VALUES(" +
+                    "'"+question+"', " +
+                    "'"+answer+"', " +
+                    "'"+opt1+"', " +
+                    "'"+opt2+"', " +
+                    "'"+opt3+"'" +
+                    ")");
+            db.close();
+            dbHelper.close();
+            return true;
+        } catch (Exception ex){
+            new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
+                    .setMessage("try1->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
+                    .setPositiveButton("Ok", null)
+                    .show();
+            return false;
+        }
+    }
+
+    public boolean delDB(String id){
+        try{
+            db = dbHelper.getWritableDatabase();
+            db.execSQL("DELETE FROM QUESTIONS WHERE ID = '"+id+"'");
+            db.close();
+            dbHelper.close();
+            return true;
+        } catch (Exception ex){
+            new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
+                    .setMessage("try2->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
+                    .setPositiveButton("Ok", null)
+                    .show();
+            return false;
+        }
+    }
+
+    protected ArrayList<BdQuestion> getQuestions(){
+        ArrayList<BdQuestion> qlist = new ArrayList<>();
+
+        db = dbHelper.getReadableDatabase();
+        //Será criado um cursor para percorrer os dados do select
+        Cursor cursor = db.rawQuery("SELECT * FROM QUESTIONS", null);
+        cursor.moveToFirst(); //O cursor começa antes do primeiro registro, isso posiciona o cursor no primeiro registro
+
+        while (!cursor.isAfterLast()){
+            BdQuestion q = new BdQuestion();
+            q.alternative = new ArrayList();
+            //q.alternative.clear();
+
+            q._id = cursor.getString(cursor.getColumnIndex("ID"));
+            q.title = cursor.getString(cursor.getColumnIndex("QUESTION"));
+            q.answer = cursor.getString(cursor.getColumnIndex("ANSWER"));
+            q.alternative.add(cursor.getString(cursor.getColumnIndex("ANSWER")));
+            q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT1")));
+            q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT2")));
+            q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT3")));
+            Collections.shuffle(q.alternative);
+            qlist.add(q);
+
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        db.close(); // Objeto banco---
+        dbHelper.close(); // Semelhante ao conector, ou driver do bd.... Enfim, depois de fechar o db, fechar o dbHelper para economizar memória.
+
+        return qlist;
+    }
+
+    private void clearDB(){
+        db = dbHelper.getReadableDatabase();
+        //Será criado um cursor para percorrer os dados do select
+        db.delete("QUESTIONS", "id is not null", null);
+        db.close(); // Objeto banco---
+        dbHelper.close();
+    }
+
+    private void inflateDB(){
+
+        addDB("O que o operador INTERSECT retorna?",
+                "Retorna todos os registros comuns a várias consultas",
+                "Retorna todo o conteúdo da tabela",
+                "Retorna todas as tabelas existentes",
+                "Retorna VAI CURINTIA");
 
 
-            BdQuestion q2 = new BdQuestion();
-            q2.title = "Com qual comando abaixo eu deleto a View VU_CONTORLE?";
-            q2.answer = "DROP VIEW VU_CONTROLE";
-            q2.alternative = new ArrayList();
-            q2.alternative.add("DROP VIEW VU_CONTROLE");
-            q2.alternative.add("DELETE VIEW VU_CONTROLE");
-            q2.alternative.add("DROP VU_CONTROLE");
-            q2.alternative.add("DELETE VU_CONTROLE");
-            Collections.shuffle(q2.alternative);
-            questions.add(q2);
-/*
-            Question q3 = new Question();
-            q3.title = "Com qual comando eu consigo visualizar todas as sequências existentes?";
-            q3.answer = "SELECT * FROM USER_SEQUENCES";
-            q3.alternative = new ArrayList();
-            q3.alternative.add("SELECT * FROM SEQUENCE");
-            q3.alternative.add("SELECT * FROM USER_SEQUENCES");
-            q3.alternative.add("SELECT * SEQUENCE");
-            q3.alternative.add("SELECT * FROM SEQUENCES");
-        Collections.shuffle(q3.alternative);
-        questions.add(q3);
+        addDB("Com qual comando abaixo eu deleto a View VU_CONTORLE?",
+                "DROP VIEW VU_CONTROLE",
+                "DELETE VIEW VU_CONTROLE",
+                "DROP VU_CONTROLE",
+                "DELETE VU_CONTROLE");
 
-            Question q4 = new Question();
+        addDB("Com qual comando eu consigo visualizar todas as sequências existentes?",
+                "SELECT * FROM USER_SEQUENCES",
+                "SELECT * FROM USER_SEQUENCES",
+                "SELECT * SEQUENCE",
+                "SELECT * FROM SEQUENCES");
+
+        // Terminar de converter
+
+/*            Question q4 = new Question();
             q4.title = "Com qual comando eu deleto o sinônimo DOCENTE?";
             q4.answer = "DROP SYNONYM DOCENTE";
             q4.alternative = new ArrayList();
@@ -384,20 +468,15 @@ public class MaintenanceActivity extends AppCompatActivity {
         Collections.shuffle(q30.alternative);
         questions.add(q30);
 */
+    }
 
-            Collections.shuffle(questions);
-
-
-           // for(int i = questions.size(); i > qtdQuestions; i--) questions.remove(i);
-
-
-        }
     //Limpa os campos de resposta
     private void clearAnswers(){
         for(BdQuestion question: questions){
             userAnswers.add("");
         }
     }
+
     //Seta as perguntas na tela
     private void refreshQuestion(){
         //Define a posicao
@@ -432,6 +511,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             group.check(R.id.rbOpcao4);
 
     }
+
     public void anterior(View view){
         if(position>0) {
             position--;
@@ -446,6 +526,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             //se não houver proximo entrar no modo nova questão
         }
     }
+
     public void opcaoSelecionada(View view){
         RadioButton opt = (RadioButton)findViewById(view.getId());
         userAnswers.set(position, opt.getText().toString());
@@ -477,6 +558,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     }
+
     private String getDateTime() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
