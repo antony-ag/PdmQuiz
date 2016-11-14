@@ -1,12 +1,17 @@
 package br.com.fatecpg.pdmquiz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -31,18 +36,13 @@ public class MaintenanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance);
 
-        Intent m = getIntent();
-        //int qtdQuestions = 1;
-
-        //createTest(2);
         try {
             dbHelper = new TasksSQLiteHelp(getApplicationContext());
 
-            //inflateDB();
+            inflateDB();
             //clearDB();
 
             questions = getQuestions();
-            clearAnswers();
             refreshQuestion();
         }catch (Exception ex){
             new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
@@ -79,19 +79,48 @@ public class MaintenanceActivity extends AppCompatActivity {
         }
     }
 
-    public boolean delDB(String id){
+    public boolean changeDB(String id, String question, String answer, String opt1, String opt2, String opt3){
         try{
             db = dbHelper.getWritableDatabase();
-            db.execSQL("DELETE FROM QUESTIONS WHERE ID = '"+id+"'");
+            db.execSQL("UPDATE QUESTIONS SET" +
+                    " QUESTION="+question+
+                    ", ANSWER="+answer+
+                    ", OPT1="+opt1+
+                    ", OPT2="+opt2+
+                    ", OPT3="+opt3+
+                    " WHERE ID='"+id+"'");
             db.close();
             dbHelper.close();
             return true;
         } catch (Exception ex){
             new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
-                    .setMessage("try2->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
+                    .setMessage("try1->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
                     .setPositiveButton("Ok", null)
                     .show();
             return false;
+        }
+    }
+
+    public void delDB(View view){
+        try{
+            if(position<questions.size()) {
+                BdQuestion q = questions.get(position);
+                db = dbHelper.getWritableDatabase();
+                db.execSQL("DELETE FROM QUESTIONS WHERE ID = '" + q._id + "'");
+                db.close();
+                dbHelper.close();
+                position = (position > 0) ? (position - 1) : 0;
+                questions = getQuestions();
+                refreshQuestion();
+            }else if (position == questions.size()){
+                refreshQuestion();
+            }
+        } catch (Exception ex){
+            newQuestion();
+            new AlertDialog.Builder(this)  //onde eu coloquei this, ele espera um contexto, o this representa este contexto(activity), eu poderia usar o getApplicationContext() para retornar o contexto da activity qye está visível
+                    .setMessage("try2->"+ex.getLocalizedMessage()) // ex é a variável declarada no Exception, getLocalizedMessage() é uma mensagem dentro de ex... Isso é o que será exibido para o usuário.
+                    .setPositiveButton("Ok", null)
+                    .show();
         }
     }
 
@@ -99,7 +128,8 @@ public class MaintenanceActivity extends AppCompatActivity {
         ArrayList<BdQuestion> qlist = new ArrayList<>();
 
         db = dbHelper.getReadableDatabase();
-        //Será criado um cursor para percorrer os dados do select
+
+        //Cursor para percorrer os dados do select
         Cursor cursor = db.rawQuery("SELECT * FROM QUESTIONS", null);
         cursor.moveToFirst(); //O cursor começa antes do primeiro registro, isso posiciona o cursor no primeiro registro
 
@@ -115,16 +145,15 @@ public class MaintenanceActivity extends AppCompatActivity {
             q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT1")));
             q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT2")));
             q.alternative.add(cursor.getString(cursor.getColumnIndex("OPT3")));
-            Collections.shuffle(q.alternative);
+            //Collections.shuffle(q.alternative);
             qlist.add(q);
 
             cursor.moveToNext();
         }
 
         cursor.close();
-
-        db.close(); // Objeto banco---
-        dbHelper.close(); // Semelhante ao conector, ou driver do bd.... Enfim, depois de fechar o db, fechar o dbHelper para economizar memória.
+        db.close();
+        dbHelper.close();
 
         return qlist;
     }
@@ -470,45 +499,55 @@ public class MaintenanceActivity extends AppCompatActivity {
 */
     }
 
-    //Limpa os campos de resposta
-    private void clearAnswers(){
-        for(BdQuestion question: questions){
-            userAnswers.add("");
-        }
-    }
-
     //Seta as perguntas na tela
     private void refreshQuestion(){
-        //Define a posicao
-        BdQuestion q = questions.get(position);
-        TextView posTextView = (TextView)findViewById(R.id.tvPosicao);
-        posTextView.setText((position+1)+" de "+questions.size());
+        if((questions.size() == 0) || (position == questions.size()-1)) {
+            Button btnNext = (Button) findViewById(R.id.btProximo);
+            btnNext.setText("NOVA");
+            btnNext.setBackgroundResource(R.drawable.btn_1);
+        }else{
+            Button btnNext = (Button)findViewById(R.id.btProximo);
+            btnNext.setBackgroundResource(R.drawable.btn_5);
+            btnNext.setText("PRÓXIMO");
+        }
 
-        //Seta as perguntas na tela
-        TextView qTextView = (TextView)findViewById(R.id.tvQuestoes);
-        qTextView.setText(q.title);
+        if(questions.size()>0 && position<questions.size()){
+            //Define a posicao
+            BdQuestion q = questions.get(position);
+            TextView posTextView = (TextView)findViewById(R.id.tvPosicao);
+            posTextView.setText((position+1)+" de "+questions.size());
 
-        //Seta as opções na Tela
-        RadioButton opt1 = (RadioButton)findViewById(R.id.rbOpcao1);
-        opt1.setText(q.alternative.get(0).toString());
-        RadioButton opt2 = (RadioButton)findViewById(R.id.rbOpcao2);
-        opt2.setText(q.alternative.get(1).toString());
-        RadioButton opt3 = (RadioButton)findViewById(R.id.rbOpcao3);
-        opt3.setText(q.alternative.get(2).toString());
-        RadioButton opt4 = (RadioButton)findViewById(R.id.rbOpcao4);
-        opt4.setText(q.alternative.get(3).toString());
-        RadioGroup group = (RadioGroup)findViewById(R.id.rgRespostas);
-        group.check(0);
+            //Seta as pergunta na tela
+            TextView qTextView = (TextView)findViewById(R.id.tvQuestoes);
+            qTextView.setText(q.title);
 
-        //Compara se a pergunta
-        if(userAnswers.get(position).equals(opt1.getText()))
-            group.check(R.id.rbOpcao1);
-        else if(userAnswers.get(position).equals(opt2.getText()))
-            group.check(R.id.rbOpcao2);
-        else if(userAnswers.get(position).equals(opt3.getText()))
-            group.check(R.id.rbOpcao3);
-        else if(userAnswers.get(position).equals(opt4.getText()))
-            group.check(R.id.rbOpcao4);
+            //Seta as opções na Tela
+            RadioButton opt1 = (RadioButton)findViewById(R.id.rbOpcao1);
+            opt1.setText(q.alternative.get(0).toString());
+            RadioButton opt2 = (RadioButton)findViewById(R.id.rbOpcao2);
+            opt2.setText(q.alternative.get(1).toString());
+            RadioButton opt3 = (RadioButton)findViewById(R.id.rbOpcao3);
+            opt3.setText(q.alternative.get(2).toString());
+            RadioButton opt4 = (RadioButton)findViewById(R.id.rbOpcao4);
+            opt4.setText(q.alternative.get(3).toString());
+            RadioGroup group = (RadioGroup)findViewById(R.id.rgRespostas);
+            group.check(0);
+
+            //Compara se a pergunta
+            if(q.answer.equals(opt1.getText()))
+                group.check(R.id.rbOpcao1);
+            else if(q.answer.equals(opt2.getText()))
+                group.check(R.id.rbOpcao2);
+            else if(q.answer.equals(opt3.getText()))
+                group.check(R.id.rbOpcao3);
+            else if(q.answer.equals(opt4.getText()))
+                group.check(R.id.rbOpcao4);
+        }else{
+            Button btnNext = (Button) findViewById(R.id.btProximo);
+            btnNext.setText("NOVA");
+            btnNext.setBackgroundResource(R.drawable.btn_1);
+            newQuestion();
+        }
 
     }
 
@@ -519,17 +558,128 @@ public class MaintenanceActivity extends AppCompatActivity {
         }
     }
     public void proximo(View view){
+
         if(position<questions.size()-1) {
             position++;
             //Carregar o próximo
             refreshQuestion();
             //se não houver proximo entrar no modo nova questão
+        }else {
+            newQuestion();
         }
+
+    }
+
+    public void newQuestion(){
+        position = questions.size();
+
+        TextView posTextView = (TextView) findViewById(R.id.tvPosicao);
+        posTextView.setText("Nova questão");
+
+        //Seta as pergunta na tela
+        TextView qTextView = (TextView) findViewById(R.id.tvQuestoes);
+        qTextView.setText("Clique para editar a pergunta");
+
+        //Seta as opções na Tela
+        RadioButton opt1 = (RadioButton) findViewById(R.id.rbOpcao1);
+        opt1.setText("Clique para editar a resposta");
+        RadioButton opt2 = (RadioButton) findViewById(R.id.rbOpcao2);
+        opt2.setText("Clique para editar a alternativa");
+        RadioButton opt3 = (RadioButton) findViewById(R.id.rbOpcao3);
+        opt3.setText("Clique para editar a alternativa");
+        RadioButton opt4 = (RadioButton) findViewById(R.id.rbOpcao4);
+        opt4.setText("Clique para editar a alternativa");
+        RadioGroup group = (RadioGroup) findViewById(R.id.rgRespostas);
+        group.check(0);
+    }
+
+    public void abrePopup(String textoAtual, String title, final View view){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setTitle(title);
+
+        final EditText input = new EditText(this);
+        input.setHint(textoAtual);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Entre com o novo texto")
+                .setCancelable(false)
+                .setView(input)
+                .setPositiveButton("Alterar",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        RadioButton opt = (RadioButton)findViewById(view.getId());
+                        String oldText = opt.getText().toString();
+                        String newText = input.getText().toString();
+                        opt.setText((newText.equals("")) ? oldText : newText);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // show it
+        alertDialogBuilder.show();
+    }
+
+    public void abrePopupTv(String textoAtual, String title, final View view){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setTitle(title);
+
+        final EditText input = new EditText(this);
+        input.setHint(textoAtual);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Entre com o novo texto")
+                .setCancelable(false)
+                .setView(input)
+                .setPositiveButton("Alterar",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        TextView tv = (TextView)findViewById(view.getId());
+                        String oldText = tv.getText().toString();
+                        String newText = input.getText().toString();
+                        tv.setText((newText.equals("")) ? oldText : newText);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // show it
+        alertDialogBuilder.show();
+    }
+
+    public void refreshTv(View view, EditText ed){
+        TextView tv = (TextView)findViewById(view.getId());
+        String oldText = tv.getText().toString();
+        String newText = ed.getText().toString();
+        tv.setText((newText.equals("")) ? oldText : newText);
     }
 
     public void opcaoSelecionada(View view){
         RadioButton opt = (RadioButton)findViewById(view.getId());
-        userAnswers.set(position, opt.getText().toString());
+        abrePopup(opt.getText().toString(), "Opção", view);
+
+        //userAnswers.set(position, opt.getText().toString());
+    }
+
+    public void tvQuest(View view){
+        TextView tv = (TextView)findViewById(view.getId());
+        abrePopupTv(tv.getText().toString(), "Pergunta", view);
     }
 
     public void finalizar (View view){

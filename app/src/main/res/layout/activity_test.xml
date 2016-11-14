@@ -103,7 +103,8 @@
             android:onClick="opcaoSelecionada"
             android:text="[opcao 1]"
             android:textColor="@android:color/background_light"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:button="@drawable/custom_radio_button"/>
 
         <RadioButton
             android:id="@+id/rbOpcao2"
@@ -114,7 +115,8 @@
             android:onClick="opcaoSelecionada"
             android:text="[opcao 2]"
             android:textColor="@android:color/background_light"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:button="@drawable/custom_radio_button"/>
 
         <RadioButton
             android:id="@+id/rbOpcao3"
@@ -125,7 +127,8 @@
             android:onClick="opcaoSelecionada"
             android:text="[opcao 3]"
             android:textColor="@android:color/background_light"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:button="@drawable/custom_radio_button"/>
 
         <RadioButton
             android:id="@+id/rbOpcao4"
@@ -136,6 +139,7 @@
             android:onClick="opcaoSelecionada"
             android:text="[opcao 4]"
             android:textColor="@android:color/background_light"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:button="@drawable/custom_radio_button"/>
     </RadioGroup>
 </RelativeLayout>
