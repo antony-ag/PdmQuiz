@@ -83,7 +83,7 @@
             >
 
             <TextView
-                android:id="@+id/perg"
+                android:id="@+id/tvPerg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/perg"
+                android:layout_below="@+id/tvPerg"
                 android:text="[PERGUNTA]"
                 android:textColor="@android:color/background_light"
                 android:textSize="22sp" />
@@ -185,12 +185,12 @@
             android:layout_alignParentBottom="true">
 
             <Button
-                android:id="@+id/btFinalizar"
+                android:id="@+id/btGravar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/btn_2"
-                android:onClick="finalizar"
+                android:onClick="gravar"
                 android:text="GRAVAR"
                 android:textColor="#FFFFFF"
                 android:textSize="28sp"
