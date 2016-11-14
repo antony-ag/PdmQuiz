@@ -210,19 +210,8 @@ public class MaintenanceActivity extends AppCompatActivity {
         tvr.setBackgroundColor(0x00000000);
         tva.setBackgroundColor(0x00000000);
         
-        //Modifica o texto e o tipo do botão 'próximo' caso esteja sendo exibida a última questão registrada ou uma questão nova.
-        if((questions.size() == 0) || (position == questions.size()-1)) {
-            Button btnNext = (Button) findViewById(R.id.btProximo);
-            btnNext.setText("NOVA");
-            btnNext.setBackgroundResource(R.drawable.btn_1);
-        }else{
-            Button btnNext = (Button)findViewById(R.id.btProximo);
-            btnNext.setBackgroundResource(R.drawable.btn_5);
-            btnNext.setText("PRÓXIMO");
-        }
-
         //Atualiza os campos da activity em função da posição atual do cursor 'position'
-        if(questions.size()>0 && position<questions.size()){ // Existem questões em 'questions' e cursor não estão posicionado na última questão.
+        if(questions.size()>0 && position >= 0 && position<questions.size()){ // Existem questões em 'questions' e cursor não estão posicionado na última questão.
             //Define a posicao
             BdQuestion q = questions.get(position);
             TextView posTextView = (TextView)findViewById(R.id.tvPosicao);
@@ -250,12 +239,32 @@ public class MaintenanceActivity extends AppCompatActivity {
             group.check(R.id.rbAnswer);
 
         }else{
-            Button btnNext = (Button) findViewById(R.id.btProximo);
-            btnNext.setText("NOVA");
-            btnNext.setBackgroundResource(R.drawable.btn_1);
             newQuestion();
         }
 
+        changeButtons();
+
+    }
+
+    private void changeButtons() {
+        //Modifica o texto e o tipo do botão 'próximo' caso esteja sendo exibida a última questão registrada ou uma questão nova.
+        Button btnPrev = (Button) findViewById(R.id.btAnterior);
+        if (position <= 0){
+            btnPrev.setText("NOVA");
+            btnPrev.setBackgroundResource(R.drawable.btn_1);
+        }else{
+            btnPrev.setText("ANTERIOR");
+            btnPrev.setBackgroundResource(R.drawable.btn_5);
+        }
+
+        Button btnNext = (Button) findViewById(R.id.btProximo);
+        if((questions.size() == 0) || (position >= questions.size()-1)) {
+            btnNext.setText("NOVA");
+            btnNext.setBackgroundResource(R.drawable.btn_1);
+        }else{
+            btnNext.setBackgroundResource(R.drawable.btn_5);
+            btnNext.setText("PRÓXIMO");
+        }
     }
 
     /**
@@ -263,9 +272,13 @@ public class MaintenanceActivity extends AppCompatActivity {
      * @param view
      */
     public void anterior(View view){
-        if(position>0) {
+        if(position>=0) {
             position--;
             refreshQuestion();
+        }else if(position == -1){
+            newQuestion();
+        }else{
+            position = -1;
         }
     }
 
@@ -290,10 +303,12 @@ public class MaintenanceActivity extends AppCompatActivity {
      * Prepara a activity para receber os dados de uma nova questão.
      */
     private void newQuestion(){
+        changeButtons();
+
         position = questions.size();
 
         TextView posTextView = (TextView) findViewById(R.id.tvPosicao);
-        posTextView.setText("Nova questão");
+        posTextView.setText((position+1)+"(*) de "+ questions.size());
 
         //Seta as pergunta na tela
         TextView qTextView = (TextView) findViewById(R.id.tvQuestoes);
@@ -339,14 +354,10 @@ public class MaintenanceActivity extends AppCompatActivity {
      */
     public void abrePopup(String textoAtual, String title, final View view){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        // set title
         alertDialogBuilder.setTitle(title);
-
         final EditText input = new EditText(this);
         input.setHint(textoAtual);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        // set dialog message
         alertDialogBuilder
                 .setMessage("Entre com o novo texto")
                 .setCancelable(false)
@@ -362,13 +373,10 @@ public class MaintenanceActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
                         dialog.cancel();
                     }
                 });
 
-        // show it
         alertDialogBuilder.show();
     }
 
@@ -380,14 +388,10 @@ public class MaintenanceActivity extends AppCompatActivity {
      */
     public void abrePopupTv(String textoAtual, String title, final View view){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        // set title
         alertDialogBuilder.setTitle(title);
-
         final EditText input = new EditText(this);
         input.setHint(textoAtual);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        // set dialog message
         alertDialogBuilder
                 .setMessage("Entre com o novo texto")
                 .setCancelable(false)
@@ -403,13 +407,9 @@ public class MaintenanceActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
                         dialog.cancel();
                     }
                 });
-
-        // show it
         alertDialogBuilder.show();
     }
 
@@ -423,7 +423,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         //Nova Questão
         TextView posTextView = (TextView) findViewById(R.id.tvPosicao);
         String tvNew = posTextView.getText().toString();
-        boolean newQuestion = tvNew.equals("Nova questão");
+        boolean newQuestion = tvNew.equals((position+1)+"(*) de "+ questions.size());
 
         //Pergunta
         TextView tv = (TextView)findViewById(R.id.tvQuestoes);
