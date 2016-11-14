@@ -148,7 +148,7 @@ public class TestActivity extends AppCompatActivity {
             q10.answer = "GRANT";
             q10.alternative = new ArrayList();
             q10.alternative.add("GRANT");
-            q10.alternative.add("GRANT");
+            q10.alternative.add("ROLE");
             q10.alternative.add("PRIVILEGIO");
             q10.alternative.add("SELECT");
         Collections.shuffle(q10.alternative);
@@ -203,7 +203,7 @@ public class TestActivity extends AppCompatActivity {
             q15.answer = "GRANT CREATE VIEW, CREATE SYNONYM TO AUXILIAR";
             q15.alternative = new ArrayList();
             q15.alternative.add("GRANT CREATE VIEW, CREATE SYNONYM FOR AUXILIAR");
-            q15.alternative.add("GRANT VIEW, CREATE SYNONYM TO AUXILIAR");
+            q15.alternative.add("GRANT CREATE VIEW, CREATE SYNONYM TO AUXILIAR");
             q15.alternative.add("GRANT CREATE VIEW, CREATE SYNONYM IN AUXILIAR");
             q15.alternative.add("GRANT CREATE VIEW TO AUXILIAR");
         Collections.shuffle(q15.alternative);
@@ -216,7 +216,7 @@ public class TestActivity extends AppCompatActivity {
             q16.alternative.add("CREATE INDEX IDX_ALUNO IN ALUNO (NMALUNO)");
             q16.alternative.add("CREATE IDX_ALUNO ON ALUNO (NMALUNO)");
             q16.alternative.add("CREATE INDEX IDX_ALUNO FOR ALUNO (NMALUNO)");
-            q16.alternative.add("INDEX IDX_ALUNO ON ALUNO (NMALUNO)");
+            q16.alternative.add("CREATE INDEX IDX_ALUNO ON ALUNO (NMALUNO)");
         Collections.shuffle(q16.alternative);
         questions.add(q16);
 
@@ -284,7 +284,6 @@ public class TestActivity extends AppCompatActivity {
             q22.alternative.add("São Paulo");
             q22.alternative.add("Sinônimo Query Linguagem");
             q22.alternative.add("Significa questões de linguagem");
-            q22.alternative.add("Não sei");
         Collections.shuffle(q22.alternative);
         questions.add(q22);
 
@@ -357,7 +356,6 @@ public class TestActivity extends AppCompatActivity {
             q28.alternative.add("Somente poderá ser escrito em uma única linha");
             q28.alternative.add("Pode ser colocado em várias linhas desde que no final de cada linha seja colocado o ponto e vírgula");
             q28.alternative.add("N.D.A");
-            q28.alternative.add("Curitiba");
         Collections.shuffle(q28.alternative);
         questions.add(q28);
 
@@ -369,7 +367,6 @@ public class TestActivity extends AppCompatActivity {
             q29.alternative.add("Serve para dividir um comando ou instrução em várias linhas SQL");
             q29.alternative.add("Não sei");
             q29.alternative.add("N.D.A");
-            q29.alternative.add("Curitiba");
         Collections.shuffle(q29.alternative);
         questions.add(q29);
 
