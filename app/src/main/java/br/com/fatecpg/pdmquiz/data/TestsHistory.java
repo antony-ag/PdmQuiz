@@ -17,15 +17,15 @@ public class TestsHistory{
 
     private static TasksSQLiteHelp dbHelper = null;
     private static SQLiteDatabase db = null;
-    private static ArrayList<TestsList> testsHistory = new ArrayList<>();
-    private static TestsList newEntry = new TestsList();
+    private static ArrayList<Tests> testsHistory = new ArrayList<>();
+    private static Tests newEntry = new Tests();
 
     public TestsHistory(TasksSQLiteHelp dbHelper){
         TestsHistory.dbHelper = dbHelper;
     }
 
     public static void setNewEntry(int testSize, int points, String sDate){
-        newEntry = new TestsList();
+        newEntry = new Tests();
         newEntry.testSize = testSize;
         newEntry.points = points;
         newEntry.sDate = sDate;
@@ -35,7 +35,7 @@ public class TestsHistory{
         return testsHistory.get(i).id;
     }
 
-    public static ArrayList<TestsList> getTestsHistory() {
+    public static ArrayList<Tests> getTestsHistory() {
         return testsHistory;
     }
     public static List<String> getHistoryList(){
@@ -90,7 +90,7 @@ public class TestsHistory{
         cursor.moveToFirst(); //O cursor começa antes do primeiro registro, isso posiciona o cursor no primeiro registro
 
         while (!cursor.isAfterLast()){ // Verifica se todos os registros recuperados do banco já foram percorridos pelo cursor
-            TestsList t = new TestsList();
+            Tests t = new Tests();
 
             //Recupera coluna por coluna do banco na posição atual do cursor
             t.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("ID")));

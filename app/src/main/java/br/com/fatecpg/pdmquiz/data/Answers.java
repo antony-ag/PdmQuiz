@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by tony on 19/11/16.
  */
 
-public class AnswersList {
+public class Answers {
     protected ArrayList<String> id = new ArrayList<>();
     protected ArrayList<String> question = new ArrayList<>();
     protected ArrayList<String> answer = new ArrayList<>();

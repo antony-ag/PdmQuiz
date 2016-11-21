@@ -45,7 +45,6 @@ public class HistoricActivity extends AppCompatActivity {
 
                     AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo; //com o acmi.position eu tenho retorno de qual foi o id clicado no list view
 
-                    String position = list.getItemAtPosition(acmi.position).toString();
                     menu.add(Menu.NONE,acmi.position,0,"Excluir");
                 }
 

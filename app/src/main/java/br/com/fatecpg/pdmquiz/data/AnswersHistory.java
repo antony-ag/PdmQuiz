@@ -17,7 +17,7 @@ public class AnswersHistory {
 
     private TasksSQLiteHelp dbHelper = null;
     private SQLiteDatabase db = null;
-    private AnswersList answers = new AnswersList();
+    private Answers answers = new Answers();
 
     public void setDbHelper(TasksSQLiteHelp dbHelper) {
         this.dbHelper = dbHelper;
@@ -37,7 +37,7 @@ public class AnswersHistory {
     }
 
     public void clear(){
-        answers = new AnswersList();
+        answers = new Answers();
     }
 
     public int getPoints(){ return answers.getPoints(); }
@@ -64,7 +64,7 @@ public class AnswersHistory {
     }
 
     public List<String> readDB_BY_ID(int testID){
-        AnswersList answersID = new AnswersList();
+        Answers answersID = new Answers();
 
         db = dbHelper.getReadableDatabase();
 

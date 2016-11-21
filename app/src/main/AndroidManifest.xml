@@ -18,7 +18,8 @@
         <activity android:name=".ResultActivity" android:screenOrientation="portrait" />
         <activity android:name=".MaintenanceActivity" android:screenOrientation="portrait" />
         <activity android:name=".TestActivity" android:screenOrientation="portrait" />
-        <activity android:name=".HistoricActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".HistoricActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".DetalhesActivity" android:screenOrientation="portrait"/>
     </application>
 
     <uses-permission android:name="android.permission.VIBRATE"/>
