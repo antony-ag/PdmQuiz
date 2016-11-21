@@ -1,25 +1,8 @@
 package br.com.fatecpg.pdmquiz.db;
 
-/**
- * Created by tony on 13/11/16.
- */
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
-import br.com.fatecpg.pdmquiz.BdQuestion;
-
-/**
- * Created by tony on 07/11/16.
- */
 
 public class TasksSQLiteHelp extends SQLiteOpenHelper {
 
@@ -30,7 +13,7 @@ public class TasksSQLiteHelp extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        //CRIAR A TABELA
+        //CRIAR A TABELAS
         db.execSQL("" +
                 "CREATE TABLE QUESTIONS(" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -40,10 +23,23 @@ public class TasksSQLiteHelp extends SQLiteOpenHelper {
                 "OPT2 TEXT, " +
                 "OPT3 TEXT" +
                 ");");
-
         inflateDB(db);
 
+        db.execSQL("" +
+                "CREATE TABLE TESTS_HISTORY(" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "T_SIZE INTEGER, " +
+                "T_POINTS INTEGER, " +
+                "T_DATE TEXT" +
+                ");");
 
+        db.execSQL("" +
+                "CREATE TABLE ANSWERS_HISTORY(" +
+                "ID_TEST TEXT, " +
+                "QUESTION TEXT, " +
+                "ANSWER TEXT, " +
+                "USER_ANSWER TEXT" +
+                ");");
     }
 
     @Override
@@ -61,7 +57,7 @@ public class TasksSQLiteHelp extends SQLiteOpenHelper {
      * @param opt2
      * @param opt3
      */
-    public void addDB(SQLiteDatabase db, String question, String answer, String opt1, String opt2, String opt3) {
+    private void addDB(SQLiteDatabase db, String question, String answer, String opt1, String opt2, String opt3) {
         db.execSQL("INSERT INTO QUESTIONS(QUESTION, ANSWER, OPT1, OPT2, OPT3) VALUES(" +
                 "'" + question + "', " +
                 "'" + answer + "', " +
