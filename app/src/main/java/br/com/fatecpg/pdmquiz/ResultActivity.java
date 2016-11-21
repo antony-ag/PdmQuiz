@@ -1,8 +1,8 @@
 package br.com.fatecpg.pdmquiz;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,9 +25,15 @@ public class ResultActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
 
     }
-    public void restart(View view){
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+
+    @Override
+    public void onBackPressed() {
         finish();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public void inicio(View view){
+        finish();
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

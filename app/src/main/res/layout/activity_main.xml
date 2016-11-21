@@ -18,13 +18,15 @@
         android:textColor="@android:color/background_light"
         android:text="Informe o numero de questões para o seu teste(Entre 10 e 30):"
         android:textSize="25dp"/>
+
     <EditText
         android:inputType="number"
         android:id="@+id/editQtd"
         android:textColor="@android:color/background_light"
         android:layout_below="@+id/txtQtdQuestoes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:ignore="LabelFor" />
     <Button
         android:layout_marginTop="20sp"
         android:text="INICIAR"
@@ -74,7 +76,7 @@
         android:id="@+id/txtRendimento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rendimento:"
+        android:text="Sua média:"
         android:textColor="@android:color/background_light"
         android:textSize="20dp"/>
 
